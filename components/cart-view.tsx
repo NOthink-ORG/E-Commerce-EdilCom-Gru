@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ShoppingCart, ArrowLeft, ArrowRight, Trash2 } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Trash2 } from "lucide-react";
 import { useStore } from "./store-provider";
 import { products, money } from "@/lib/catalog";
 import {
@@ -25,7 +25,7 @@ export function CartView() {
         <h2>Il tuo carrello è ancora vuoto</h2>
         <p>Il prossimo ricambio per la tua gru ti aspetta nel catalogo.</p>
         <Link className="button primary" href="/catalogo">
-          Esplora il catalogo <ArrowRight size={18} />
+          Esplora il catalogo
         </Link>
       </div>
     );

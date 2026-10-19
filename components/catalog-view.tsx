@@ -9,7 +9,6 @@ import {
   List,
   Search,
   ChevronLeft,
-  ChevronRight,
   RotateCcw,
 } from "lucide-react";
 import { products, categories, money, type Product } from "@/lib/catalog";
@@ -32,6 +31,11 @@ export function CatalogView() {
     min = Number(params.get("min") || 0),
     sort = params.get("ordine") || "relevance",
     voltage = params.getAll("tensione");
+  const [priceDraft, setPriceDraft] = useState({ source: max, value: max });
+  const sliderMax = priceDraft.source === max ? priceDraft.value : max;
+  function commitPrice(value: string) {
+    if (Number(value) !== max) change("max", value);
+  }
   function change(key: string, value: string, multi = false) {
     const next = new URLSearchParams(params.toString());
     next.delete("pagina");
@@ -182,11 +186,14 @@ export function CatalogView() {
           type="range"
           min={0}
           max={2000}
-          step={10}
-          value={max}
-          onChange={(e) => change("max", e.target.value)}
+          step={1}
+          value={sliderMax}
+          onChange={(e) => setPriceDraft({ source: max, value: Number(e.target.value) })}
+          onPointerUp={(e) => commitPrice(e.currentTarget.value)}
+          onKeyUp={(e) => commitPrice(e.currentTarget.value)}
+          onBlur={(e) => commitPrice(e.currentTarget.value)}
         />
-        <small className="muted">Fino a {money(max)} · IVA esclusa</small>
+        <small className="muted">Fino a {money(sliderMax)} · IVA esclusa</small>
       </fieldset>
       {checkGroup(
         "Tensione / alimentazione",
@@ -266,7 +273,7 @@ export function CatalogView() {
                 href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
               >
                 <img
-                  src={`/images/${c.image}.webp`}
+                  src={`/images/demo/${c.image}.jpg`}
                   width={48}
                   height={48}
                   alt=""
@@ -278,7 +285,7 @@ export function CatalogView() {
                     prodotti
                   </small>
                 </span>
-                <ChevronRight size={15} />
+
               </Link>
             ))}
           </div>
@@ -345,7 +352,7 @@ export function CatalogView() {
                 disabled={page === pages}
                 onClick={() => change("pagina", String(page + 1))}
               >
-                <ChevronRight size={17} />
+                Successiva
               </button>
             </nav>
           )}

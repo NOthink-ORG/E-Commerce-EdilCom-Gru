@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, LockKeyhole, ShieldCheck, Tag, Check } from "lucide-react";
+import { LockKeyhole, ShieldCheck, Tag, Check } from "lucide-react";
 import { useState } from "react";
 import { products, calculateOrder, money } from "@/lib/catalog";
 import { useStore } from "./store-provider";
@@ -129,7 +129,7 @@ export function OrderSummary({
             form="checkout-demo"
             className="button primary checkout-cta"
           >
-            Verifica compilazione demo <ArrowRight size={19} />
+            Verifica compilazione demo
           </button>
           <p className="demo-note">
             <LockKeyhole size={18} /> Nessun ordine o pagamento verrà
@@ -140,7 +140,7 @@ export function OrderSummary({
         <>
           <Link href="/checkout" className="button primary checkout-cta">
             <LockKeyhole size={19} />
-            Procedi al checkout <ArrowRight size={20} />
+            Procedi al checkout
           </Link>
           <div className="secure-note">
             <ShieldCheck size={27} />

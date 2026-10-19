@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import {
-  ArrowRight,
   Minus,
   Plus,
   ShoppingCart,
@@ -182,7 +181,7 @@ export function SearchBar({
           type="search"
         />
         <button className="button primary">
-          Cerca <ArrowRight size={17} />
+          Cerca <Search size={17} />
         </button>
       </form>
       <div className="popular">
@@ -200,10 +199,12 @@ export function SectionHeading({
   eyebrow,
   title,
   link,
+  linkLabel = "Vedi tutte le categorie",
 }: {
   eyebrow: string;
   title: string;
   link?: string;
+  linkLabel?: string;
 }) {
   return (
     <div className="section-heading">
@@ -212,8 +213,8 @@ export function SectionHeading({
         <h2>{title}</h2>
       </div>
       {link && (
-        <Link className="text-link" href={link}>
-          Vedi tutte le categorie <ArrowRight size={16} />
+        <Link className="button primary" href={link}>
+          {linkLabel}
         </Link>
       )}
     </div>

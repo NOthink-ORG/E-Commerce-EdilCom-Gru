@@ -112,8 +112,8 @@ textarea {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px #ffb60022;
+  border-color: #89939f;
+  box-shadow: none;
 }
 input::placeholder,
 textarea::placeholder {
@@ -140,7 +140,7 @@ textarea {
   width: 100%;
 }
 label {
-  font-size: 13px;
+  font-size: 14px;
 }
 fieldset {
   padding: 0;
@@ -157,8 +157,8 @@ legend {
   background: #ffdf8b;
 }
 :focus-visible {
-  outline: 3px solid #e7a000;
-  outline-offset: 4px;
+  outline: 2px solid #89939f;
+  outline-offset: 0;
 }
 .container {
   width: calc(100% - 96px);
@@ -201,7 +201,7 @@ legend {
   min-height: 44px;
   border-radius: 5px;
   padding: 11px 20px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   line-height: 1.3;
   transition:
@@ -257,7 +257,7 @@ legend {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 600;
@@ -267,7 +267,7 @@ legend {
   color: #af7800;
 }
 .eyebrow {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   color: #eea000;
   font-weight: 650;
@@ -291,7 +291,7 @@ legend {
 .topbar {
   background: #f3f4f5;
   border-bottom: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 12px;
 }
 .topbar > .container {
   display: flex;
@@ -315,7 +315,7 @@ legend {
 }
 .topbar button {
   padding: 0;
-  font-size: 10px;
+  font-size: 12px;
 }
 .demo-label {
   color: #6a727d;
@@ -350,7 +350,7 @@ legend {
   gap: 29px;
   margin-right: auto;
   margin-left: 28px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 .main-nav > a,
@@ -361,7 +361,7 @@ legend {
   gap: 5px;
   white-space: nowrap;
   padding: 15px 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 .main-nav > a:hover,
 .main-nav > button:hover,
@@ -389,7 +389,7 @@ legend {
   display: grid;
   place-items: center;
   background: var(--accent);
-  font-size: 10px;
+  font-size: 12px;
   border: 2px solid white;
   padding: 0 3px;
   font-weight: 700;
@@ -421,7 +421,7 @@ legend {
   justify-content: space-between;
   padding: 10px 12px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .dropdown-content a:hover {
   background: #fff8e5;
@@ -506,7 +506,7 @@ legend {
   border: 1px solid #dfe3e8;
   border-radius: 6px;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
   padding-left: 16px;
 }
 .search-form > svg {
@@ -517,7 +517,7 @@ legend {
   padding: 13px 0;
   flex: 1;
   width: 100%;
-  font-size: 13px;
+  font-size: 14px;
   box-shadow: none;
 }
 .search-form .button {
@@ -530,7 +530,7 @@ legend {
   align-items: center;
   gap: 10px;
   margin-top: 12px;
-  font-size: 11px;
+  font-size: 13px;
   flex-wrap: wrap;
 }
 .popular > span {
@@ -541,7 +541,7 @@ legend {
   padding: 3px 15px;
   border-radius: 50px;
   color: #505864;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
 }
 .popular a:hover {
@@ -586,7 +586,7 @@ legend {
   letter-spacing: -0.025em;
 }
 .category-card p {
-  font-size: 12px;
+  font-size: 14px;
   color: #6a7380;
   margin-top: 7px;
   line-height: 1.5;
@@ -641,7 +641,7 @@ legend {
   color: #118436;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
   white-space: nowrap;
   width: max-content;
@@ -680,7 +680,7 @@ legend {
   transform: scale(1.035);
 }
 .product-name {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   font-weight: 700;
   min-height: 38px;
@@ -695,7 +695,7 @@ legend {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   margin-bottom: 12px;
   min-height: 22px;
@@ -720,7 +720,7 @@ legend {
   margin-bottom: 12px;
 }
 .price small {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 .buy-row {
@@ -736,7 +736,7 @@ legend {
 }
 .buy-row.compact .button {
   padding: 9px 7px;
-  font-size: 10px;
+  font-size: 12px;
   gap: 5px;
   min-height: 39px;
 }
@@ -766,7 +766,7 @@ legend {
   border-inline: 1px solid var(--line);
   padding: 6px 0;
   border-radius: 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   box-shadow: none;
 }
@@ -779,7 +779,7 @@ legend {
 .compact .quantity input {
   width: 31px;
   border: 0;
-  font-size: 11px;
+  font-size: 13px;
 }
 .compact .quantity button {
   display: none;
@@ -808,7 +808,7 @@ legend {
 }
 .support-banner .eyebrow {
   color: #ffc100;
-  font-size: 11px;
+  font-size: 13px;
   margin-bottom: 9px;
 }
 .support-banner h2 {
@@ -827,7 +827,7 @@ legend {
 .support-banner .button {
   min-height: 40px;
   padding: 9px 18px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .trust-section {
   padding-top: 27px;
@@ -859,7 +859,7 @@ legend {
 }
 .benefits strong {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.25;
   max-width: 145px;
   font-weight: 700;
@@ -867,7 +867,7 @@ legend {
 }
 .benefits small {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.5;
   margin-top: 5px;
@@ -880,11 +880,11 @@ legend {
   padding-bottom: 30px;
 }
 .brands-section .eyebrow {
-  font-size: 11px;
+  font-size: 13px;
   margin-bottom: 0;
 }
 .brands-section > p.muted {
-  font-size: 11px;
+  font-size: 13px;
 }
 .brands-section > img {
   display: block;
@@ -897,7 +897,7 @@ legend {
 .footer {
   background: #141a1e;
   color: #c6cace;
-  font-size: 11px;
+  font-size: 13px;
 }
 .footer-grid {
   display: grid;
@@ -924,12 +924,12 @@ legend {
 }
 .footer-demo {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 12px;
   color: #7f8991;
 }
 .footer h3 {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--accent);
   text-transform: uppercase;
   font-weight: 600;
@@ -942,7 +942,7 @@ legend {
   align-items: center;
   gap: 10px;
   margin-top: 7px;
-  font-size: 11px;
+  font-size: 13px;
   color: #c6cace;
   padding: 0;
   text-align: left;
@@ -959,7 +959,7 @@ legend {
 }
 .footer-bottom {
   border-top: 1px solid #ffffff1c;
-  font-size: 10px;
+  font-size: 12px;
 }
 .footer-bottom > .container {
   display: flex;
@@ -974,7 +974,7 @@ legend {
   gap: 22px;
 }
 .footer-bottom button {
-  font-size: 10px;
+  font-size: 12px;
   color: #b3b9be;
 }
 .back-top {
@@ -989,7 +989,7 @@ legend {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px;
+  font-size: 13px;
   color: #687382;
   padding-block: 22px;
   flex-wrap: wrap;
@@ -1010,7 +1010,7 @@ legend {
   background-position: center 49%;
 }
 .category-hero .hero-breadcrumb {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: #ffc000;
   margin-bottom: 8px;
@@ -1054,7 +1054,7 @@ legend {
   white-space: nowrap;
 }
 .filter-heading .text-button {
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
   padding: 0;
 }
@@ -1070,20 +1070,20 @@ legend {
   display: block;
   width: 100%;
   margin-bottom: 12px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .check-label {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-block: 8px;
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
 }
 .check-label small {
   margin-left: auto;
   color: #8a92a0;
-  font-size: 10px;
+  font-size: 12px;
 }
 .price-inputs {
   display: flex;
@@ -1096,7 +1096,7 @@ legend {
 .price-inputs input {
   width: 100%;
   padding: 8px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .price-range {
   padding: 0;
@@ -1108,7 +1108,7 @@ legend {
   margin-bottom: 7px;
 }
 .filters fieldset > small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .catalog-toolbar {
   display: flex;
@@ -1119,7 +1119,7 @@ legend {
   min-height: 40px;
 }
 .catalog-toolbar > strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 .sort-controls {
   display: flex;
@@ -1127,11 +1127,11 @@ legend {
   gap: 10px;
 }
 .sort-controls label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
 }
 .sort-controls select {
-  font-size: 11px;
+  font-size: 13px;
   padding: 8px 28px 8px 10px;
   max-width: 165px;
   height: 36px;
@@ -1174,13 +1174,13 @@ legend {
   mix-blend-mode: multiply;
 }
 .subcategories strong {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.3;
   display: block;
   letter-spacing: -0.01em;
 }
 .subcategories small {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   display: block;
   margin-top: 5px;
@@ -1200,20 +1200,20 @@ legend {
   height: 132px;
 }
 .catalog-results .product-name {
-  font-size: 12px;
+  font-size: 14px;
 }
 .catalog-results .product-meta {
-  font-size: 9px;
+  font-size: 11px;
   margin-bottom: 8px;
 }
 .catalog-results .brand-tag {
-  font-size: 9px;
+  font-size: 11px;
 }
 .catalog-results .price {
   font-size: 15px;
 }
 .catalog-results .compact .button {
-  font-size: 9px;
+  font-size: 11px;
   padding-inline: 6px;
 }
 .catalog-results .compact .button svg {
@@ -1227,14 +1227,14 @@ legend {
   align-items: center;
   justify-content: space-between;
   background: #fff9e8;
-  font-size: 11px;
+  font-size: 13px;
   padding: 9px 12px;
   border-radius: 5px;
   margin-bottom: 14px;
   gap: 12px;
 }
 .active-filters .text-button {
-  font-size: 10px;
+  font-size: 12px;
 }
 .pagination {
   display: flex;
@@ -1249,7 +1249,7 @@ legend {
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 .pagination button.active {
@@ -1257,7 +1257,7 @@ legend {
   border-color: var(--accent);
 }
 .catalog-note {
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
   color: var(--muted);
   margin-top: 18px;
@@ -1400,7 +1400,7 @@ legend {
   display: inline-flex;
   background: #fff5d9;
   color: #b87b00;
-  font-size: 10px;
+  font-size: 12px;
   border-radius: 4px;
   padding: 3px 7px;
   margin-bottom: 12px;
@@ -1417,7 +1417,7 @@ legend {
   margin-top: 5px;
 }
 .detail-meta {
-  font-size: 11px;
+  font-size: 13px;
   color: #5c6673;
   margin-top: 19px;
   margin-bottom: 16px;
@@ -1448,11 +1448,11 @@ legend {
   letter-spacing: -0.04em;
 }
 .detail-price > span {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 .inclusive-price {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 0;
   margin-bottom: 18px;
 }
@@ -1475,10 +1475,10 @@ legend {
 }
 .detail-purchase .button {
   padding-inline: 13px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .demo-note {
-  font-size: 10px;
+  font-size: 12px;
   color: #7a838e;
   display: flex;
   align-items: center;
@@ -1502,12 +1502,12 @@ legend {
   height: 25px;
 }
 .benefits.small strong {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0;
   line-height: 1.3;
 }
 .benefits.small small {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.5;
   margin-top: 4px;
 }
@@ -1525,17 +1525,17 @@ legend {
   color: #3b4653;
 }
 .compatibility-box h3 {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0;
 }
 .compatibility-box p {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5;
   margin-top: 4px;
   color: var(--muted);
 }
 .compatibility-box .button {
-  font-size: 9px;
+  font-size: 11px;
   padding: 8px;
   min-height: 33px;
   border-color: #ffbb1a;
@@ -1570,7 +1570,7 @@ legend {
 }
 .technical dl {
   margin-top: 18px;
-  font-size: 12px;
+  font-size: 14px;
   color: #68717d;
 }
 .technical dl > div {
@@ -1586,14 +1586,14 @@ legend {
   color: #444e5b;
 }
 .technical .small-copy {
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 15px;
 }
 .reasons p {
   display: flex;
   align-items: flex-start;
   gap: 11px;
-  font-size: 12px;
+  font-size: 14px;
   color: #65707d;
   margin-top: 14px;
 }
@@ -1615,12 +1615,12 @@ legend {
   font-size: 14px;
 }
 .help-panel p {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   margin: 5px 0 10px;
 }
 .help-panel .button {
-  font-size: 10px;
+  font-size: 12px;
   min-height: 35px;
   padding: 8px 13px;
 }
@@ -1634,7 +1634,7 @@ legend {
 }
 .product-tabs [role="tab"] {
   padding: 14px 12px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
@@ -1651,7 +1651,7 @@ legend {
   margin-bottom: 8px;
 }
 .product-tabs [role="tabpanel"] p {
-  font-size: 13px;
+  font-size: 14px;
   color: #697380;
   line-height: 1.75;
   max-width: 1160px;
@@ -1722,14 +1722,14 @@ legend {
 .cart-table-head {
   background: #f6f7f9;
   padding: 13px 12px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   border-radius: 5px;
 }
 .cart-row {
   border-bottom: 1px solid var(--line);
   padding: 21px 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .cart-product {
   display: flex;
@@ -1747,7 +1747,7 @@ legend {
   height: 88px;
 }
 .cart-product h2 {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.45;
   letter-spacing: -0.025em;
   font-weight: 700;
@@ -1759,11 +1759,11 @@ legend {
 .cart-quantity > small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.65;
 }
 .cart-unit strong {
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .cart-quantity .quantity {
@@ -1775,21 +1775,21 @@ legend {
 }
 .cart-quantity .quantity input {
   width: 25px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .cart-quantity > small {
   margin-top: 7px;
   text-align: center;
 }
 .cart-stock .stock {
-  font-size: 9px;
+  font-size: 11px;
 }
 .cart-stock small {
   margin-top: 6px;
-  font-size: 9px;
+  font-size: 11px;
 }
 .cart-subtotal {
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .remove-product {
@@ -1804,12 +1804,12 @@ legend {
   gap: 12px;
 }
 .cart-bottom .button {
-  font-size: 10px;
+  font-size: 12px;
   min-height: 36px;
   padding: 9px 12px;
 }
 .cart-bottom .text-button {
-  font-size: 10px;
+  font-size: 12px;
 }
 .order-summary {
   padding: 23px;
@@ -1829,11 +1829,11 @@ legend {
   line-height: 1.2;
 }
 .summary-heading .text-button {
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
 }
 .summary-totals {
-  font-size: 12px;
+  font-size: 14px;
   color: #5a6471;
   margin: 0;
 }
@@ -1855,7 +1855,7 @@ legend {
   margin-top: 15px;
 }
 .shipping-note {
-  font-size: 10px;
+  font-size: 12px;
   color: #229445;
   margin-top: -3px;
   margin-bottom: 5px;
@@ -1888,7 +1888,7 @@ legend {
 }
 .grand-total small {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: #78818a;
   margin-top: 4px;
 }
@@ -1896,7 +1896,7 @@ legend {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   margin-bottom: 9px;
 }
@@ -1906,14 +1906,14 @@ legend {
 .coupon input {
   width: 100%;
   flex: 1;
-  font-size: 11px;
+  font-size: 13px;
   padding: 10px;
   min-width: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 .coupon .button {
-  font-size: 10px;
+  font-size: 12px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   min-height: 37px;
@@ -1921,7 +1921,7 @@ legend {
 }
 .coupon > small {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   margin-top: 7px;
 }
 .success-copy,
@@ -1931,7 +1931,7 @@ legend {
 .checkout-cta {
   display: flex;
   width: 100%;
-  font-size: 13px;
+  font-size: 14px;
   min-height: 49px;
   margin-top: 22px;
   gap: 10px;
@@ -1947,18 +1947,18 @@ legend {
   margin-top: 18px;
 }
 .secure-note strong {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   display: block;
 }
 .secure-note small {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   display: block;
   margin-top: 3px;
 }
 .summary-demo {
-  font-size: 9px;
+  font-size: 11px;
   color: #8a929b;
   border-top: 1px solid var(--line);
   padding-top: 13px;
@@ -1986,7 +1986,7 @@ legend {
   margin: 0;
   align-items: flex-start;
   width: 48%;
-  font-size: 10px;
+  font-size: 12px;
 }
 .checkout-steps li {
   position: relative;
@@ -2050,11 +2050,11 @@ legend {
   color: #d49a00;
 }
 .demo-callout strong {
-  font-size: 12px;
+  font-size: 14px;
 }
 .demo-callout p {
   color: #8b7748;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 4px;
 }
 .checkout-layout {
@@ -2087,7 +2087,7 @@ legend {
   color: var(--ink);
 }
 .checkout-form h2 small {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   font-weight: 400;
   letter-spacing: 0;
@@ -2098,7 +2098,7 @@ legend {
   margin-bottom: 14px;
 }
 .checkout-form h2 + .muted {
-  font-size: 11px;
+  font-size: 13px;
   margin-top: -10px;
   margin-left: 35px;
   margin-bottom: 19px;
@@ -2112,7 +2112,7 @@ legend {
   margin-bottom: 20px;
 }
 .customer-toggle button {
-  font-size: 12px;
+  font-size: 14px;
   padding: 8px 22px;
 }
 .customer-toggle button.active {
@@ -2126,7 +2126,7 @@ legend {
 }
 .field {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   color: #333e49;
 }
 .field input,
@@ -2135,7 +2135,7 @@ legend {
   width: 100%;
   height: 39px;
   padding: 9px 12px;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 5px;
 }
 .field.wide {
@@ -2145,7 +2145,7 @@ legend {
   color: #b52626;
 }
 .same-address {
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 20px;
   color: #65717e;
 }
@@ -2165,17 +2165,17 @@ legend {
 }
 .shipping-option strong {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
 }
 .shipping-option small {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   display: block;
   margin-top: 2px;
 }
 .shipping-option b {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
   font-weight: 500;
 }
@@ -2191,10 +2191,10 @@ legend {
   color: #7c8794;
 }
 .payment-unavailable strong {
-  font-size: 12px;
+  font-size: 14px;
 }
 .payment-unavailable p {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   margin-top: 5px;
 }
@@ -2221,25 +2221,25 @@ legend {
   flex: 1;
 }
 .summary-products strong {
-  font-size: 11px;
+  font-size: 13px;
   display: block;
   line-height: 1.45;
 }
 .summary-products small {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   display: block;
   margin-top: 5px;
 }
 .summary-products span {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: #65717c;
   margin-top: 5px;
 }
 .summary-products b {
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 14px;
 }
 .review-success {
   display: flex;
@@ -2252,10 +2252,10 @@ legend {
   border-radius: 6px;
 }
 .review-success strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 .review-success p {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 4px;
 }
 .modal {
@@ -2284,7 +2284,7 @@ legend {
   max-width: 90%;
 }
 .modal > p {
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 15px;
   line-height: 1.7;
 }
@@ -2293,7 +2293,7 @@ legend {
 }
 .modal form label {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 15px;
 }
 .modal form input,
@@ -2313,12 +2313,12 @@ legend {
 }
 .draft pre {
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 .draft .button {
-  font-size: 11px;
+  font-size: 13px;
 }
 .toast {
   position: fixed;
@@ -2335,7 +2335,7 @@ legend {
   align-items: center;
   gap: 11px;
   padding: 16px 24px;
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -2399,7 +2399,7 @@ legend {
     gap: 10px;
   }
   .catalog-button {
-    font-size: 11px;
+    font-size: 13px;
     padding-inline: 13px;
   }
   .logo img {
@@ -2410,7 +2410,7 @@ legend {
     padding: 12px;
   }
   .buy-row.compact .button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .product-image {
     height: 130px;
@@ -2430,7 +2430,7 @@ legend {
     height: 110px;
   }
   .catalog-results .compact .button {
-    font-size: 8px;
+    font-size: 11px;
     gap: 3px;
     padding-inline: 4px;
   }
@@ -2439,11 +2439,11 @@ legend {
     gap: 4px;
   }
   .catalog-results .product-name {
-    font-size: 11px;
+    font-size: 13px;
     min-height: 33px;
   }
   .catalog-results .brand-tag {
-    font-size: 8px;
+    font-size: 11px;
   }
   .subcategories > a {
     padding: 7px;
@@ -2453,13 +2453,13 @@ legend {
     width: 30px;
   }
   .subcategories strong {
-    font-size: 9px;
+    font-size: 11px;
   }
   .subcategories svg {
     display: none;
   }
   .subcategories small {
-    font-size: 8px;
+    font-size: 11px;
   }
   .cart-layout {
     grid-template-columns: minmax(0, 2.05fr) minmax(275px, 1fr);
@@ -2478,15 +2478,15 @@ legend {
     height: 70px;
   }
   .cart-product h2 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .cart-stock .stock {
-    font-size: 8px;
+    font-size: 11px;
     padding-inline: 4px;
   }
   .cart-unit strong,
   .cart-subtotal {
-    font-size: 10px;
+    font-size: 12px;
   }
   .order-summary {
     padding: 19px;
@@ -2495,13 +2495,13 @@ legend {
     padding: 15px 10px;
   }
   .grand-total > strong {
-    font-size: 13px;
+    font-size: 14px;
   }
   .grand-total b {
     font-size: 18px;
   }
   .checkout-cta {
-    font-size: 11px;
+    font-size: 13px;
   }
   .product-detail {
     gap: 26px;
@@ -2522,14 +2522,14 @@ legend {
     flex-basis: 100%;
   }
   .detail-purchase .buy-row .button {
-    font-size: 12px;
+    font-size: 14px;
   }
   .compatibility-box {
     padding: 12px;
     gap: 9px;
   }
   .compatibility-box .button {
-    font-size: 8px;
+    font-size: 11px;
     padding: 7px;
   }
   .benefits.small {
@@ -2551,7 +2551,7 @@ legend {
     width: calc(100% - 48px);
   }
   .topbar .demo-label {
-    font-size: 9px;
+    font-size: 11px;
   }
   .header-inner {
     height: 74px;
@@ -2563,14 +2563,14 @@ legend {
   .main-nav > a,
   .main-nav > button,
   .nav-dropdown > button {
-    font-size: 11px;
+    font-size: 13px;
   }
   .header-actions {
     gap: 8px;
   }
   .header-actions .catalog-button {
     padding-inline: 10px;
-    font-size: 10px;
+    font-size: 12px;
     gap: 7px;
   }
   .header-actions .icon-button {
@@ -2598,22 +2598,22 @@ legend {
     height: 90px;
   }
   .category-card h3 {
-    font-size: 12px;
+    font-size: 14px;
   }
   .category-card p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .section-heading h2 {
     font-size: 25px;
   }
   .product-card .product-name {
-    font-size: 12px;
+    font-size: 14px;
   }
   .product-image {
     height: 115px;
   }
   .product-meta {
-    font-size: 9px;
+    font-size: 11px;
     gap: 4px;
     flex-wrap: wrap;
   }
@@ -2624,7 +2624,7 @@ legend {
     width: 28px;
   }
   .buy-row.compact .button {
-    font-size: 8px;
+    font-size: 11px;
     gap: 3px;
     padding-inline: 4px;
   }
@@ -2643,16 +2643,16 @@ legend {
     height: 36px;
   }
   .benefits strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .benefits small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .support-banner h2 {
     font-size: 26px;
   }
   .support-banner .container > p:not(.eyebrow) {
-    font-size: 13px;
+    font-size: 14px;
   }
   .cart-layout {
     grid-template-columns: 1fr 295px;
@@ -2677,7 +2677,7 @@ legend {
     height: 75px;
   }
   .cart-product h2 {
-    font-size: 12px;
+    font-size: 14px;
   }
   .cart-quantity {
     grid-column: 1;
@@ -2699,7 +2699,7 @@ legend {
     display: none;
   }
   .cart-stock .stock {
-    font-size: 8px;
+    font-size: 11px;
   }
   .cart-stock {
     display: none;
@@ -2710,7 +2710,7 @@ legend {
   .cart-subtotal {
     grid-column: 2;
     grid-row: 2;
-    font-size: 12px;
+    font-size: 14px;
   }
   .remove-product {
     grid-column: 3;
@@ -2726,17 +2726,17 @@ legend {
     gap: 16px;
   }
   .footer-about p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-grid a:not(.footer-about a),
   .footer-grid button {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-grid h3 {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-grid > div:last-child p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .checkout-layout {
     grid-template-columns: minmax(0, 1.3fr) minmax(290px, 1fr);
@@ -2756,16 +2756,16 @@ legend {
     height: 60px;
   }
   .summary-products b {
-    font-size: 10px;
+    font-size: 12px;
   }
   .summary-products strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .summary-products > div {
     gap: 9px;
   }
   .checkout-steps {
-    font-size: 9px;
+    font-size: 11px;
   }
   .detail-panels .panel {
     padding: 20px;
@@ -2777,7 +2777,7 @@ legend {
     padding: 16px 20px;
   }
   .technical dl {
-    font-size: 11px;
+    font-size: 13px;
   }
   .technical dl > div {
     grid-template-columns: 42% 58%;
@@ -2795,16 +2795,16 @@ legend {
     gap: 9px;
   }
   .benefits.small strong {
-    font-size: 8px;
+    font-size: 11px;
   }
   .benefits.small small {
-    font-size: 7px;
+    font-size: 11px;
   }
   .product-detail {
     gap: 21px;
   }
   .detail-meta {
-    font-size: 10px;
+    font-size: 12px;
   }
   .compatibility-box {
     flex-wrap: wrap;
@@ -2819,10 +2819,10 @@ legend {
     height: 125px;
   }
   .catalog-results .product-name {
-    font-size: 12px;
+    font-size: 14px;
   }
   .catalog-results .compact .button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .subcategories {
     grid-template-columns: repeat(3, 1fr);
@@ -2834,10 +2834,10 @@ legend {
     width: 38px;
   }
   .subcategories strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .subcategories small {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 @media (max-width: 800px) {
@@ -2885,7 +2885,7 @@ legend {
     display: block;
   }
   .dropdown-content a {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--muted);
     padding: 9px 0;
   }
@@ -2896,7 +2896,7 @@ legend {
     margin-left: auto;
   }
   .header-actions .catalog-button {
-    font-size: 11px;
+    font-size: 13px;
     min-height: 38px;
     padding: 10px 14px;
   }
@@ -2928,7 +2928,7 @@ legend {
     font-size: 14px;
   }
   .category-card p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2943,13 +2943,13 @@ legend {
     height: 145px;
   }
   .product-card .product-name {
-    font-size: 13px;
+    font-size: 14px;
   }
   .buy-row.compact .button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .product-meta {
-    font-size: 9px;
+    font-size: 11px;
   }
   .section-heading h2 {
     font-size: 25px;
@@ -2964,11 +2964,11 @@ legend {
     gap: 15px;
   }
   .benefits strong {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 180px;
   }
   .benefits small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .benefits svg {
     width: 39px;
@@ -2999,11 +2999,11 @@ legend {
     margin-right: 15px;
   }
   .footer-grid h3 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .footer-grid a:not(.footer-about a),
   .footer-grid button {
-    font-size: 11px;
+    font-size: 13px;
   }
   .catalog-layout {
     grid-template-columns: 1fr;
@@ -3016,13 +3016,13 @@ legend {
     padding: 8px 12px;
     min-height: 36px;
     margin-left: auto;
-    font-size: 11px;
+    font-size: 13px;
   }
   .catalog-toolbar {
     gap: 10px;
   }
   .catalog-toolbar > strong {
-    font-size: 12px;
+    font-size: 14px;
   }
   .sort-controls label {
     display: none;
@@ -3040,7 +3040,7 @@ legend {
     height: 145px;
   }
   .catalog-results .compact .button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .subcategories {
     grid-template-columns: repeat(5, 1fr);
@@ -3058,7 +3058,7 @@ legend {
     width: 42px;
   }
   .subcategories small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .drawer-backdrop {
     position: fixed;
@@ -3089,11 +3089,11 @@ legend {
     font-size: 17px;
   }
   .filter-heading .text-button {
-    font-size: 10px;
+    font-size: 12px;
     margin-left: auto;
   }
   .filters .check-label {
-    font-size: 12px;
+    font-size: 14px;
     margin-block: 12px;
   }
   .filters fieldset {
@@ -3142,7 +3142,7 @@ legend {
     flex: 0;
   }
   .detail-purchase .button {
-    font-size: 12px;
+    font-size: 14px;
   }
   .detail-purchase .quantity button {
     width: 30px;
@@ -3155,10 +3155,10 @@ legend {
     gap: 15px;
   }
   .benefits.small strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .benefits.small small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .benefits.small svg {
     width: 28px;
@@ -3170,10 +3170,10 @@ legend {
   }
   .compatibility-box > .button {
     margin-left: auto;
-    font-size: 10px;
+    font-size: 12px;
   }
   .compatibility-box p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .detail-panels {
     grid-template-columns: 1fr 1fr;
@@ -3188,7 +3188,7 @@ legend {
     padding-block: 8px;
   }
   .technical dt {
-    font-size: 10px;
+    font-size: 12px;
   }
   .detail-panels .help-panel {
     display: block;
@@ -3197,7 +3197,7 @@ legend {
     display: none;
   }
   .reasons p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .cart-layout {
     grid-template-columns: 1fr;
@@ -3209,7 +3209,7 @@ legend {
     display: grid;
     grid-template-columns: 2.2fr 0.8fr 1fr 0.9fr 0.7fr 28px;
     gap: 12px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .cart-row {
     display: grid;
@@ -3225,10 +3225,10 @@ legend {
     height: 65px;
   }
   .cart-product h2 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .cart-product small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .cart-unit {
     display: block;
@@ -3255,12 +3255,12 @@ legend {
     align-self: center;
   }
   .cart-stock .stock {
-    font-size: 8px;
+    font-size: 11px;
   }
   .cart-subtotal {
     grid-column: auto;
     grid-row: auto;
-    font-size: 10px;
+    font-size: 12px;
   }
   .remove-product {
     grid-column: auto;
@@ -3274,7 +3274,7 @@ legend {
     font-size: 24px;
   }
   .summary-totals {
-    font-size: 13px;
+    font-size: 14px;
   }
   .grand-total > strong {
     font-size: 17px;
@@ -3289,23 +3289,23 @@ legend {
     max-width: none;
   }
   .coupon > label {
-    font-size: 12px;
+    font-size: 14px;
   }
   .coupon input {
-    font-size: 12px;
+    font-size: 14px;
   }
   .coupon .button {
-    font-size: 12px;
+    font-size: 14px;
     padding-inline: 25px;
   }
   .checkout-cta {
     font-size: 14px;
   }
   .secure-note strong {
-    font-size: 12px;
+    font-size: 14px;
   }
   .secure-note small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .cart-page > .section .product-card:nth-child(n + 4) {
     display: none;
@@ -3323,7 +3323,7 @@ legend {
     gap: 5px;
   }
   .checkout-steps li {
-    font-size: 8px;
+    font-size: 11px;
     white-space: normal;
   }
   .checkout-form {
@@ -3336,12 +3336,12 @@ legend {
     gap: 18px;
   }
   .field {
-    font-size: 13px;
+    font-size: 14px;
   }
   .field input,
   .field select {
     height: 43px;
-    font-size: 13px;
+    font-size: 14px;
   }
   .summary-products img {
     width: 85px;
@@ -3351,14 +3351,14 @@ legend {
     gap: 18px;
   }
   .summary-products strong {
-    font-size: 13px;
+    font-size: 14px;
   }
   .summary-products b {
     font-size: 14px;
   }
   .summary-products small,
   .summary-products span {
-    font-size: 11px;
+    font-size: 13px;
   }
   .summary-products > div > div {
     padding-top: 3px;
@@ -3378,7 +3378,7 @@ legend {
     width: calc(100% - 32px);
   }
   .topbar > .container {
-    font-size: 9px;
+    font-size: 11px;
     justify-content: center;
   }
   .topbar > .container > div {
@@ -3418,7 +3418,7 @@ legend {
     padding-bottom: 60px;
   }
   .hero .eyebrow {
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 12px;
   }
   .hero h1 {
@@ -3427,7 +3427,7 @@ legend {
     letter-spacing: -0.05em;
   }
   .hero-content > p:not(.eyebrow) {
-    font-size: 13px;
+    font-size: 14px;
     max-width: 330px;
     line-height: 1.65;
     margin-top: 16px;
@@ -3442,7 +3442,7 @@ legend {
   .hero-actions .button {
     min-width: 0;
     padding: 11px 12px;
-    font-size: 10px;
+    font-size: 12px;
     gap: 7px;
     min-height: 41px;
   }
@@ -3461,26 +3461,26 @@ legend {
   }
   .search-form {
     padding-left: 10px;
-    gap: 7px;
+    gap: 12px;
   }
   .search-form > svg {
     width: 17px;
   }
   .search-form input {
-    font-size: 11px;
+    font-size: 13px;
     padding: 12px 0;
   }
   .search-form .button {
     min-width: 66px;
     padding: 10px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .search-form .button svg {
     display: none;
   }
   .popular {
     gap: 6px;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.5;
     margin-top: 10px;
     flex-wrap: nowrap;
@@ -3490,12 +3490,12 @@ legend {
   }
   .popular > span {
     white-space: nowrap;
-    font-size: 9px;
+    font-size: 11px;
   }
   .popular a {
     padding: 3px 9px;
     white-space: nowrap;
-    font-size: 9px;
+    font-size: 11px;
   }
   .section {
     padding-top: 26px;
@@ -3511,7 +3511,7 @@ legend {
     letter-spacing: -0.04em;
   }
   .eyebrow {
-    font-size: 10px;
+    font-size: 12px;
   }
   .section-heading .text-link {
     font-size: 0;
@@ -3535,10 +3535,10 @@ legend {
     height: 107px;
   }
   .category-card h3 {
-    font-size: 13px;
+    font-size: 14px;
   }
   .category-card p {
-    font-size: 11px;
+    font-size: 13px;
     max-width: 135px;
   }
   .category-arrow {
@@ -3566,7 +3566,7 @@ legend {
     padding: 11px;
   }
   .stock {
-    font-size: 9px;
+    font-size: 11px;
     padding: 2px 5px;
   }
   .stock > span {
@@ -3578,13 +3578,13 @@ legend {
     margin: 7px 0 9px;
   }
   .product-card .product-name {
-    font-size: 12px;
+    font-size: 14px;
     min-height: 35px;
     margin-bottom: 9px;
     line-height: 1.4;
   }
   .product-meta {
-    font-size: 9px;
+    font-size: 11px;
     min-height: 35px;
     gap: 4px;
     align-content: flex-start;
@@ -3592,7 +3592,7 @@ legend {
     margin-bottom: 7px;
   }
   .brand-tag {
-    font-size: 9px;
+    font-size: 11px;
     padding: 2px 4px;
   }
   .price {
@@ -3600,10 +3600,10 @@ legend {
     margin-bottom: 10px;
   }
   .price small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .buy-row.compact .button {
-    font-size: 8px;
+    font-size: 11px;
     gap: 3px;
     padding: 8px 5px;
     min-height: 38px;
@@ -3618,7 +3618,7 @@ legend {
   }
   .compact .quantity input {
     width: 25px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .support-banner {
     padding: 26px 0 27px;
@@ -3632,7 +3632,7 @@ legend {
     background: linear-gradient(90deg, #0b1318ee, #0b1318cc 55%, #0b131844);
   }
   .support-banner .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .support-banner h2 {
     font-size: 25px;
@@ -3643,13 +3643,13 @@ legend {
     display: inline;
   }
   .support-banner .container > p:not(.eyebrow) {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 330px;
     margin-top: 11px;
     margin-bottom: 17px;
   }
   .support-banner .button {
-    font-size: 11px;
+    font-size: 13px;
     padding-inline: 13px;
   }
   .trust-section {
@@ -3666,10 +3666,10 @@ legend {
     height: 31px;
   }
   .benefits strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .benefits small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .brands-section {
     margin-top: 24px;
@@ -3677,10 +3677,10 @@ legend {
     padding-top: 17px;
   }
   .brands-section .eyebrow {
-    font-size: 10px;
+    font-size: 12px;
   }
   .brands-section > p.muted {
-    font-size: 10px;
+    font-size: 12px;
   }
   .brands-section > img {
     min-height: 29px;
@@ -3706,7 +3706,7 @@ legend {
     width: 140px;
   }
   .footer-about p {
-    font-size: 10px;
+    font-size: 12px;
     margin: 0;
     flex: 1;
     min-width: 140px;
@@ -3719,22 +3719,22 @@ legend {
     grid-column: auto;
   }
   .footer-grid h3 {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-grid a:not(.footer-about a),
   .footer-grid button {
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-grid > div:last-child p,
   .footer-grid > div:last-child button {
     display: flex;
     margin-right: 0;
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-bottom > .container {
     align-items: flex-start;
     gap: 10px;
-    font-size: 9px;
+    font-size: 11px;
     flex-direction: column;
     padding-block: 17px;
   }
@@ -3748,7 +3748,7 @@ legend {
     width: 29px;
   }
   .footer-bottom button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .category-hero {
     padding-top: 23px;
@@ -3759,10 +3759,10 @@ legend {
     max-width: 320px;
   }
   .category-hero .hero-breadcrumb {
-    font-size: 9px;
+    font-size: 11px;
   }
   .category-hero .container > p:last-child {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 300px;
     line-height: 1.6;
   }
@@ -3779,21 +3779,21 @@ legend {
     margin-bottom: 13px;
   }
   .catalog-toolbar > strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .sort-controls {
     gap: 0;
   }
   .sort-controls select {
     width: 119px;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px;
     height: 34px;
   }
   .filter-toggle {
     min-height: 34px;
     padding: 7px 9px;
-    font-size: 10px;
+    font-size: 12px;
     gap: 5px;
   }
   .filter-toggle svg {
@@ -3813,10 +3813,10 @@ legend {
     padding: 9px;
   }
   .subcategories strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .subcategories small {
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 3px;
   }
   .catalog-results .product-grid.columns-4 {
@@ -3830,18 +3830,18 @@ legend {
     height: 115px;
   }
   .catalog-results .product-name {
-    font-size: 11px;
+    font-size: 13px;
     min-height: 33px;
   }
   .catalog-results .product-meta {
-    font-size: 8px;
+    font-size: 11px;
     min-height: 29px;
   }
   .catalog-results .brand-tag {
-    font-size: 8px;
+    font-size: 11px;
   }
   .catalog-results .compact .button {
-    font-size: 8px;
+    font-size: 11px;
     padding: 8px 4px;
     gap: 3px;
   }
@@ -3852,11 +3852,11 @@ legend {
     width: 24px;
   }
   .active-filters {
-    font-size: 10px;
+    font-size: 12px;
     align-items: flex-start;
   }
   .active-filters .text-button {
-    font-size: 9px;
+    font-size: 11px;
     flex-shrink: 0;
   }
   .pagination button {
@@ -3864,11 +3864,11 @@ legend {
     min-width: 35px;
   }
   .catalog-note {
-    font-size: 9px;
+    font-size: 11px;
     text-wrap: balance;
   }
   .breadcrumbs {
-    font-size: 9px;
+    font-size: 11px;
     gap: 5px;
     padding-block: 18px;
   }
@@ -3919,7 +3919,7 @@ legend {
     margin-top: 7px;
   }
   .detail-meta {
-    font-size: 10px;
+    font-size: 12px;
     margin-top: 15px;
     gap: 4px;
   }
@@ -3928,17 +3928,17 @@ legend {
     padding-left: 8px;
   }
   .detail-meta b {
-    font-size: 12px;
+    font-size: 14px;
     margin-left: 5px;
   }
   .detail-price > strong {
     font-size: 31px;
   }
   .detail-price > span {
-    font-size: 10px;
+    font-size: 12px;
   }
   .inclusive-price {
-    font-size: 11px;
+    font-size: 13px;
     margin-bottom: 16px;
   }
   .detail-purchase {
@@ -3959,16 +3959,16 @@ legend {
     width: 31px;
   }
   .detail-purchase .buy-row .button {
-    font-size: 12px;
+    font-size: 14px;
   }
   .detail-purchase > .button {
     width: 100%;
     flex: 1;
     min-height: 41px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .demo-note {
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 11px;
   }
   .benefits.small {
@@ -3981,10 +3981,10 @@ legend {
     height: 27px;
   }
   .benefits.small strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .benefits.small small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .compatibility-box {
     padding: 14px;
@@ -3999,7 +3999,7 @@ legend {
   }
   .compatibility-box .button {
     margin-left: 38px;
-    font-size: 10px;
+    font-size: 12px;
     min-height: 35px;
     padding: 9px 12px;
   }
@@ -4015,17 +4015,17 @@ legend {
     font-size: 16px;
   }
   .technical dl {
-    font-size: 11px;
+    font-size: 13px;
   }
   .technical dl > div {
     grid-template-columns: 43% 57%;
     gap: 0;
   }
   .technical dt {
-    font-size: 11px;
+    font-size: 13px;
   }
   .technical .small-copy {
-    font-size: 9px;
+    font-size: 11px;
   }
   .detail-panels .help-panel {
     display: flex;
@@ -4035,14 +4035,14 @@ legend {
     width: 32px;
   }
   .reasons p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .product-tabs {
     margin-top: 20px;
   }
   .product-tabs [role="tab"] {
     padding: 12px 4px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .product-tabs [role="tabpanel"] {
     padding-top: 19px;
@@ -4052,7 +4052,7 @@ legend {
     font-size: 17px;
   }
   .product-tabs [role="tabpanel"] p {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.7;
   }
   .related .product-image {
@@ -4071,7 +4071,7 @@ legend {
     font-size: 34px;
   }
   .page-heading > p {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.6;
     margin-top: 5px;
   }
@@ -4103,11 +4103,11 @@ legend {
     height: 77px;
   }
   .cart-product h2 {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 205px;
   }
   .cart-product small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .cart-quantity {
     grid-column: 1;
@@ -4128,7 +4128,7 @@ legend {
   }
   .cart-quantity > small {
     margin: 0;
-    font-size: 9px;
+    font-size: 11px;
   }
   .cart-unit,
   .cart-stock {
@@ -4137,7 +4137,7 @@ legend {
   .cart-subtotal {
     grid-column: 2/4;
     grid-row: 2;
-    font-size: 13px;
+    font-size: 14px;
     text-align: right;
   }
   .remove-product {
@@ -4153,12 +4153,12 @@ legend {
     justify-content: space-between;
   }
   .cart-bottom .button {
-    font-size: 9px;
+    font-size: 11px;
     min-height: 36px;
     padding: 8px;
   }
   .cart-bottom .text-button {
-    font-size: 9px;
+    font-size: 11px;
     gap: 5px;
   }
   .cart-bottom .text-button svg {
@@ -4174,7 +4174,7 @@ legend {
     font-size: 24px;
   }
   .summary-totals {
-    font-size: 12px;
+    font-size: 14px;
   }
   .grand-total {
     padding: 18px 13px;
@@ -4187,33 +4187,33 @@ legend {
     font-size: 22px;
   }
   .grand-total small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .coupon > label {
-    font-size: 11px;
+    font-size: 13px;
   }
   .coupon input {
-    font-size: 11px;
+    font-size: 13px;
   }
   .coupon .button {
     padding-inline: 19px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .coupon > small {
-    font-size: 9px;
+    font-size: 11px;
   }
   .checkout-cta {
-    font-size: 13px;
+    font-size: 14px;
     min-height: 48px;
   }
   .secure-note strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .secure-note small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .summary-demo {
-    font-size: 9px;
+    font-size: 11px;
   }
   .cart-page > .section .product-card:nth-child(n) {
     display: flex;
@@ -4236,16 +4236,16 @@ legend {
     width: 100%;
     padding-top: 24px;
     gap: 0;
-    font-size: 10px;
+    font-size: 12px;
   }
   .checkout-steps li {
-    font-size: 10px;
+    font-size: 12px;
     white-space: nowrap;
   }
   .checkout-steps span {
     width: 31px;
     height: 31px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .demo-callout {
     padding: 14px;
@@ -4256,10 +4256,10 @@ legend {
     width: 21px;
   }
   .demo-callout strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .demo-callout p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.65;
   }
   .checkout-form {
@@ -4278,7 +4278,7 @@ legend {
     width: 22px;
   }
   .checkout-form h2 + .muted {
-    font-size: 10px;
+    font-size: 12px;
     margin-left: 31px;
     line-height: 1.5;
     margin-top: -10px;
@@ -4287,11 +4287,11 @@ legend {
     gap: 15px 11px;
   }
   .field {
-    font-size: 11px;
+    font-size: 13px;
   }
   .field input,
   .field select {
-    font-size: 11px;
+    font-size: 13px;
     height: 40px;
     padding: 9px;
   }
@@ -4299,11 +4299,11 @@ legend {
     margin-bottom: 17px;
   }
   .customer-toggle button {
-    font-size: 11px;
+    font-size: 13px;
     padding: 8px 20px;
   }
   .same-address {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.6;
     align-items: flex-start;
   }
@@ -4319,28 +4319,28 @@ legend {
     margin-top: 3px;
   }
   .shipping-option strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .shipping-option small {
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.5;
   }
   .shipping-option b {
-    font-size: 9px;
+    font-size: 11px;
   }
   .payment-unavailable {
     padding: 13px;
     gap: 10px;
   }
   .payment-unavailable strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .payment-unavailable p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.6;
   }
   .checkout-form textarea {
-    font-size: 11px;
+    font-size: 13px;
     padding: 11px;
   }
   .summary-products img {
@@ -4351,30 +4351,30 @@ legend {
     gap: 10px;
   }
   .summary-products strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .summary-products b {
-    font-size: 11px;
+    font-size: 13px;
   }
   .summary-products small,
   .summary-products span {
-    font-size: 9px;
+    font-size: 11px;
   }
   .checkout-layout {
     gap: 17px;
   }
   .summary-heading .text-button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .review-success {
     padding: 14px;
     gap: 9px;
   }
   .review-success strong {
-    font-size: 12px;
+    font-size: 14px;
   }
   .review-success p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .empty-state {
     padding: 50px 18px;
@@ -4384,7 +4384,7 @@ legend {
     font-size: 24px;
   }
   .empty-state p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .modal {
     padding: 28px 22px;
@@ -4393,7 +4393,7 @@ legend {
     font-size: 25px;
   }
   .toast {
-    font-size: 11px;
+    font-size: 13px;
     padding: 14px 18px;
     bottom: 18px;
     white-space: normal;
@@ -4414,12 +4414,12 @@ legend {
   .list-view .product-name {
     margin-top: 0;
     min-height: 33px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .list-view .product-meta {
     display: flex;
     gap: 5px;
-    font-size: 8px;
+    font-size: 11px;
   }
   .list-view .price {
     align-self: auto;
@@ -4432,14 +4432,14 @@ legend {
     display: none;
   }
   .header-search input {
-    font-size: 11px;
+    font-size: 13px;
     padding: 10px;
     width: 0;
   }
   .header-search .button {
     min-height: 39px;
     padding: 9px 14px;
-    font-size: 11px;
+    font-size: 13px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -4496,4 +4496,189 @@ legend {
   .filter-drawer .check-label {
     min-height: 30px;
   }
+}
+
+/* Homepage selections and flush, square product photography. */
+.categories .category-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.featured .product-card {
+  padding: 0 16px 16px;
+  overflow: hidden;
+}
+.featured .product-card:nth-child(n) {
+  display: flex;
+}
+.featured .product-card > .stock {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+}
+.featured .product-image {
+  width: calc(100% + 32px);
+  margin: 0 -16px 18px;
+  height: auto;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.featured .product-image img {
+  object-fit: cover;
+  padding: 0;
+}
+.section-heading > .button {
+  flex-shrink: 0;
+}
+.trust-section {
+  padding-top: 48px;
+  padding-bottom: 12px;
+}
+.trust-section .benefits {
+  gap: 36px;
+  padding-block: 20px 32px;
+}
+.trust-section .benefits > div {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+.trust-section .benefits strong {
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  max-width: none;
+  font-weight: 800;
+  text-wrap: balance;
+}
+.trust-section .benefits small {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-top: 9px;
+  max-width: none;
+  color: #858993;
+}
+.trust-section .brands-section {
+  border: 0;
+  margin-top: 32px;
+}
+@media (max-width: 800px) {
+  .categories .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .featured .product-grid.columns-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .categories .section-heading,
+  .featured .section-heading {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .trust-section .benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 540px) {
+  .search-form .button svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+  .trust-section .benefits {
+    gap: 28px 20px;
+    padding-block: 12px 24px;
+  }
+  .trust-section .benefits strong {
+    font-size: 22px;
+  }
+  .trust-section .benefits small {
+    font-size: 14px;
+  }
+}
+
+/* Keep the first option below each full-width filter legend. */
+.filters fieldset { min-width: 0; }
+.filters legend { float: none; padding: 0; margin: 0; padding-top: 17px; font-size: 15px; }
+.filters .check-label { clear: both; font-size: 13px; line-height: 1.5; }
+.filters .check-label span { min-width: 0; }
+.filters .check-label input { flex-shrink: 0; }
+.filters .check-label small { font-size: 12px; }
+.filters fieldset > small { font-size: 12px; }
+.filters .price-inputs input { font-size: 13px; }
+.filters .price-range {
+  appearance: none;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.filters .price-range::-webkit-slider-runnable-track { height: 4px; background: #e1e5ea; border: 0; border-radius: 4px; }
+.filters .price-range::-moz-range-track { height: 4px; background: #e1e5ea; border: 0; border-radius: 4px; }
+.filters .price-range::-webkit-slider-thumb { appearance: none; width: 17px; height: 17px; margin-top: -6.5px; background: var(--accent); border: 0; border-radius: 50%; box-shadow: 0 2px 5px #00000016; }
+.filters .price-range::-moz-range-thumb { width: 17px; height: 17px; background: var(--accent); border: 0; border-radius: 50%; box-shadow: 0 2px 5px #00000016; }
+.filters .price-range:focus { border: 0; box-shadow: none; outline: none; }
+.filters .price-range:focus-visible { outline: 2px solid #6b7280; outline-offset: 3px; }
+.brands-section h2 { text-align: center; font-size: clamp(23px, 2.5vw, 30px); margin-bottom: 28px; }
+
+/* Shared vertical cards: square photography flush with all top edges. */
+.product-grid .product-card {
+  padding: 0 14px 16px;
+  overflow: hidden;
+}
+.product-grid .product-card > .stock { position: absolute; top: 12px; left: 12px; z-index: 1; }
+.product-grid .product-card .product-image {
+  width: calc(100% + 28px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 -14px 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.product-grid .product-image img { padding: 0; object-fit: cover; }
+.product-grid .product-name { font-size: 15px; line-height: 1.4; }
+.product-grid .product-meta { font-size: 12px; flex-wrap: wrap; }
+.product-grid .brand-tag { font-size: 11px; }
+.product-grid .stock { font-size: 12px; }
+.product-grid .buy-row.compact .button { font-size: 12px; white-space: normal; }
+.product-grid .compact .quantity input { font-size: 13px; }
+@media (min-width: 541px) {
+  .list-view .product-grid .product-card {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr) 210px;
+    grid-template-rows: 1fr auto 1fr;
+    gap: 12px 20px;
+    padding: 0 20px 0 0;
+    min-height: 210px;
+  }
+  .list-view .product-grid .product-image {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 210px;
+    aspect-ratio: auto;
+    margin: 0;
+  }
+  .list-view .product-name { align-self: end; margin: 20px 0 0; }
+  .list-view .product-meta { align-self: start; margin-bottom: 20px; }
+  .list-view .buy-row { margin-bottom: 20px; }
+}
+@media (min-width: 541px) and (max-width: 1100px) {
+  .list-view .product-grid .product-card { grid-template-columns: 180px minmax(0, 1fr); padding-right: 16px; }
+  .list-view .product-grid .product-image { grid-row: 1 / 5; }
+  .list-view .product-grid .price, .list-view .product-grid .buy-row { grid-column: 2; grid-row: auto; margin-bottom: 12px; }
+}
+@media (max-width: 540px) {
+  .product-grid .product-card { padding: 0 10px 12px; }
+  .product-grid .product-card .product-image { width: calc(100% + 20px); margin: 0 -10px 14px; }
+  .product-grid .product-name { font-size: 14px; }
+  .product-grid .product-meta, .product-grid .stock { font-size: 11px; }
+  .product-grid .buy-row.compact .button { font-size: 11px; }
 }

@@ -7,7 +7,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  ArrowRight,
   Headphones,
   Truck,
   ShieldCheck,
@@ -79,7 +78,7 @@ export function Header() {
                     href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
                   >
                     {c.name}
-                    <ArrowRight size={14} />
+
                   </Link>
                 ))}
               </div>
@@ -96,7 +95,7 @@ export function Header() {
                     href={`/catalogo?brand=${encodeURIComponent(name)}`}
                   >
                     {name}
-                    <ArrowRight size={14} />
+
                   </Link>
                 ))}
               </div>
@@ -139,7 +138,7 @@ export function Header() {
               <span>{cart.reduce((s, x) => s + x.quantity, 0)}</span>
             </Link>
             <Link className="button primary catalog-button" href="/catalogo">
-              Esplora il catalogo <ArrowRight size={17} />
+              Esplora il catalogo
             </Link>
             <button
               className="icon-button mobile-menu"
@@ -195,7 +194,7 @@ export function Benefits({ small = false }: { small?: boolean }) {
     <div className={`benefits ${small ? "small" : ""}`}>
       {benefits.map(({ icon: Icon, title, text }) => (
         <div key={title}>
-          <Icon />
+          {small && <Icon />}
           <span>
             <strong>{title}</strong>
             <small>{text}</small>
@@ -221,7 +220,7 @@ export function SupportBanner() {
         </p>
         <button className="button primary" onClick={() => support()}>
           <Headphones size={18} />
-          Richiedi assistenza tecnica <ArrowRight size={17} />
+          Richiedi assistenza tecnica
         </button>
       </div>
     </section>
@@ -234,8 +233,7 @@ export function Footer() {
       <section className="container trust-section">
         <Benefits />
         <div className="brands-section">
-          <p className="eyebrow">I marchi del catalogo demo</p>
-          <p className="muted">Ricambi per i principali marchi del settore</p>
+          <h2>Ricambi per i principali marchi di gru</h2>
           <img
             src="/images/brands.webp"
             alt="Esempi di marchi nei mockup: Manitowoc, Potain, Terex, Liebherr, Saez, Comedil. Partnership non verificate."

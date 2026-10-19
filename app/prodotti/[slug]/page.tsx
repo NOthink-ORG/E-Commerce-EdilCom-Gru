@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { catalogProvider, products } from "@/lib/catalog";
 import { Breadcrumbs, ProductGrid } from "@/components/ui";
 import { ProductDetail } from "@/components/product-detail";
@@ -58,7 +57,7 @@ export default async function ProductPage({
           <div className="section-heading">
             <h2>Prodotti correlati</h2>
             <Link className="text-link" href="/catalogo">
-              Vedi tutti i ricambi <ArrowRight size={16} />
+              Vedi tutti i ricambi
             </Link>
           </div>
           <ProductGrid products={shown} columns={4} />

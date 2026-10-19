@@ -15,15 +15,7 @@ import { StockBadge, AddToCart } from "./ui";
 import { SupportButton } from "./support-button";
 import { Benefits } from "./shell";
 export function ProductDetail({ product }: { product: Product }) {
-  const isRemote = product.id === "radiocomando-hetronic-nova-l";
-  const gallery = isRemote
-    ? [
-        "/images/detail-remote.webp",
-        "/images/detail-side.webp",
-        "/images/detail-controls.webp",
-        "/images/detail-case.webp",
-      ]
-    : [product.image];
+  const gallery = [product.image];
   const [selected, setSelected] = useState(0),
     [tab, setTab] = useState("Descrizione");
   const dialog = useRef<HTMLDialogElement>(null);

@@ -32,7 +32,7 @@ const product = (
   brand,
   category,
   price,
-  image: `/images/${image}.webp`,
+  image: `/images/demo/${image}.jpg`,
   stock,
   unit,
   compatibility:

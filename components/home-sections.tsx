@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import {
   categories as defaultCategories,
   products,
@@ -33,7 +32,7 @@ export function Hero({
           </p>
           <div className="hero-actions">
             <Link className="button primary" href="/catalogo">
-              Esplora il catalogo <ArrowRight size={18} />
+              Esplora il catalogo
             </Link>
             <SupportButton className="button light-outline" />
           </div>
@@ -58,14 +57,14 @@ export function CategoryShowcase({
         link="/catalogo#categorie"
       />
       <div className="category-grid">
-        {items.map((c) => (
+        {items.slice(0, 4).map((c) => (
           <Link
             key={c.name}
             className="category-card"
             href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
           >
             <img
-              src={`/images/${c.image}.webp`}
+              src={`/images/demo/${c.image}.jpg`}
               alt={c.name}
               width={180}
               height={130}
@@ -73,9 +72,6 @@ export function CategoryShowcase({
             />
             <h3>{c.name}</h3>
             <p>{c.description}</p>
-            <span className="category-arrow">
-              <ArrowRight size={16} />
-            </span>
           </Link>
         ))}
       </div>
@@ -83,7 +79,7 @@ export function CategoryShowcase({
   );
 }
 export function FeaturedProducts({
-  items = products.slice(0, 5),
+  items = products.slice(0, 4),
   title = "I più richiesti dai nostri clienti",
 }: {
   items?: Product[];
@@ -91,8 +87,8 @@ export function FeaturedProducts({
 }) {
   return (
     <section className="container section featured">
-      <SectionHeading eyebrow="Prodotti in evidenza" title={title} />
-      <ProductGrid products={items} />
+      <SectionHeading eyebrow="Prodotti in evidenza" title={title} link="/catalogo" linkLabel="Esplora il catalogo" />
+      <ProductGrid products={items.slice(0, 4)} columns={4} />
     </section>
   );
 }

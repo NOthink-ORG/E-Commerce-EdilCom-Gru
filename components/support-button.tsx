@@ -1,5 +1,5 @@
 "use client";
-import { Headphones, ArrowRight } from "lucide-react";
+import { Headphones } from "lucide-react";
 import { useStore } from "./store-provider";
 export function SupportButton({
   subject = "",
@@ -15,7 +15,7 @@ export function SupportButton({
     <button className={className} onClick={() => support(subject)}>
       <Headphones size={18} />
       {label}
-      <ArrowRight size={16} />
+
     </button>
   );
 }

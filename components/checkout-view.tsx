@@ -10,8 +10,7 @@ import {
   Info,
   CheckCircle2,
   ShoppingCart,
-  ArrowRight,
-} from "lucide-react";
+  } from "lucide-react";
 import { useStore } from "./store-provider";
 import { OrderSummary } from "./order-summary";
 function Field({
@@ -98,7 +97,7 @@ export function CheckoutView() {
         <h2>Aggiungi un ricambio per continuare</h2>
         <p>Il checkout demo usa i prodotti presenti nel carrello.</p>
         <Link href="/catalogo" className="button primary">
-          Vai al catalogo <ArrowRight size={17} />
+          Vai al catalogo
         </Link>
       </div>
     );
