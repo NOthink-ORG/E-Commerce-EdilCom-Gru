@@ -564,11 +564,11 @@ legend {
   border-radius: var(--radius);
   padding: 15px 18px 32px;
   min-height: 222px;
-  outline: 0 solid transparent;
-  transition: outline-width 0.075s ease, outline-color 0.075s ease;
+  transition: border-color 0.075s ease, box-shadow 0.075s ease;
 }
 .category-card:hover {
-  outline: 2px solid #8995a3;
+  border-color: #8995a3;
+  box-shadow: 0 0 0 1px #8995a3;
 }
 .category-card > img {
   display: block;
@@ -621,12 +621,11 @@ legend {
   flex-direction: column;
   min-width: 0;
   background: #fff;
-  outline: 0 solid transparent;
-  transition: outline-width 0.075s ease, outline-color 0.075s ease;
+  transition: border-color 0.075s ease, box-shadow 0.075s ease;
 }
 .product-card:hover {
-  outline: 2px solid #8995a3;
-  box-shadow: none;
+  border-color: #8995a3;
+  box-shadow: 0 0 0 1px #8995a3;
 }
 .stock {
   display: inline-flex;
