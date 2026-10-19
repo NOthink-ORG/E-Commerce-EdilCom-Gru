@@ -8,9 +8,6 @@ import {
   X,
   ChevronDown,
   Headphones,
-  Truck,
-  ShieldCheck,
-  Warehouse,
   MapPin,
   ArrowUp,
   Mail,
@@ -169,22 +166,18 @@ export function Header() {
 }
 const benefits = [
   {
-    icon: Truck,
     title: "Spedizioni rapide",
     text: "Soluzioni di consegna per il tuo cantiere",
   },
   {
-    icon: ShieldCheck,
     title: "Ricambi originali e compatibili",
     text: "Per i principali marchi di gru",
   },
   {
-    icon: Warehouse,
     title: "Ampia disponibilità",
     text: "Un catalogo dedicato al sollevamento",
   },
   {
-    icon: Headphones,
     title: "Consulenza tecnica",
     text: "Supporto nella scelta del ricambio",
   },
@@ -192,9 +185,8 @@ const benefits = [
 export function Benefits({ small = false }: { small?: boolean }) {
   return (
     <div className={`benefits ${small ? "small" : ""}`}>
-      {benefits.map(({ icon: Icon, title, text }) => (
+      {benefits.map(({ title, text }) => (
         <div key={title}>
-          {small && <Icon />}
           <span>
             <strong>{title}</strong>
             <small>{text}</small>

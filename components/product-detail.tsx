@@ -3,11 +3,7 @@ import { useRef, useState } from "react";
 import {
   Maximize2,
   X,
-  CheckCircle2,
-  FileText,
-  Truck,
   ShieldCheck,
-  Headphones,
 } from "lucide-react";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
@@ -16,8 +12,7 @@ import { SupportButton } from "./support-button";
 import { Benefits } from "./shell";
 export function ProductDetail({ product }: { product: Product }) {
   const gallery = [product.image];
-  const [selected, setSelected] = useState(0),
-    [tab, setTab] = useState("Descrizione");
+  const [selected, setSelected] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
   const technical = [
     ["Marca", product.brand],
@@ -93,150 +88,25 @@ export function ProductDetail({ product }: { product: Product }) {
             Nessun acquisto reale
           </p>
           <Benefits small />
-          <div className="compatibility-box">
-            <ShieldCheck size={33} />
-            <div>
-              <h3>Compatibilità</h3>
-              <p>
-                Verifica il componente con il modello e la matricola della tua
-                gru.
-              </p>
-            </div>
-            <SupportButton
-              subject={`Compatibilità: ${product.name}`}
-              label="Verifica compatibilità"
-            />
-          </div>
         </section>
       </div>
-      <div className="detail-panels">
-        <section className="panel technical">
-          <h2>
-            <FileText size={22} />
-            Dati tecnici principali
-          </h2>
-          <dl>
-            {technical.map(([k, v]) => (
-              <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="muted small-copy">
-            I dati di questo esempio non sostituiscono una scheda tecnica
-            ufficiale.
-          </p>
-        </section>
-        <div>
-          <section className="panel reasons">
-            <h2>
-              <ShieldCheck size={22} />
-              La scelta del ricambio, con il supporto giusto
-            </h2>
-            {[
-              "Identifica il componente tramite il codice prodotto",
-              "Confronta marca e modello della tua gru",
-              "Richiedi la verifica di compatibilità al team tecnico",
-              "Consulta la documentazione originale prima dell’installazione",
-            ].map((t) => (
-              <p key={t}>
-                <CheckCircle2 size={17} />
-                {t}
-              </p>
-            ))}
-          </section>
-          <section className="panel help-panel">
-            <Headphones size={42} />
-            <div>
-              <h3>Hai bisogno di aiuto?</h3>
-              <p>
-                Prepariamo insieme una richiesta per identificare il ricambio
-                corretto.
-              </p>
-              <SupportButton
-                subject={product.name}
-                className="button primary"
-                label="Richiedi assistenza tecnica"
-              />
+      <section className="product-description" aria-labelledby="product-description-title">
+        <h2 id="product-description-title">Descrizione del prodotto</h2>
+        <p>{product.description}</p>
+      </section>
+      <section className="panel technical product-technical" aria-labelledby="product-technical-title">
+        <h2 id="product-technical-title">Dati tecnici principali</h2>
+        <dl>
+          {technical.map(([key, value]) => (
+            <div key={key}>
+              <dt>{key}</dt>
+              <dd>{value}</dd>
             </div>
-          </section>
-        </div>
-      </div>
-      <section className="product-tabs">
-        <div role="tablist" aria-label="Informazioni prodotto">
-          {["Descrizione", "Scheda tecnica", "Compatibilità", "Spedizioni"].map(
-            (t) => (
-              <button
-                role="tab"
-                key={t}
-                id={`tab-${t}`}
-                aria-controls="product-tab-panel"
-                aria-selected={tab === t}
-                onClick={() => setTab(t)}
-                onKeyDown={(e) => {
-                  const tabs = [
-                    "Descrizione",
-                    "Scheda tecnica",
-                    "Compatibilità",
-                    "Spedizioni",
-                  ];
-                  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    e.preventDefault();
-                    const next =
-                      tabs[
-                        (tabs.indexOf(t) + (e.key === "ArrowRight" ? 1 : 3)) % 4
-                      ];
-                    setTab(next);
-                    document.getElementById(`tab-${next}`)?.focus();
-                  }
-                }}
-              >
-                {t}
-              </button>
-            ),
-          )}
-        </div>
-        <div
-          role="tabpanel"
-          id="product-tab-panel"
-          aria-labelledby={`tab-${tab}`}
-          tabIndex={0}
-        >
-          <h2>{tab === "Descrizione" ? "Descrizione del prodotto" : tab}</h2>
-          {tab === "Descrizione" ? (
-            <p>{product.description}</p>
-          ) : tab === "Scheda tecnica" ? (
-            <p>
-              La scheda tecnica ufficiale non è ancora disponibile in questa
-              demo. Richiedi il documento relativo al codice {product.code}{" "}
-              prima di scegliere il componente.
-            </p>
-          ) : tab === "Compatibilità" ? (
-            <>
-              <p>
-                La compatibilità deve essere verificata sul modello e sulla
-                matricola della gru. I marchi indicati nei filtri sono
-                associazioni dimostrative.
-              </p>
-              <SupportButton
-                subject={`Compatibilità ${product.code}`}
-                label="Richiedi verifica"
-              />
-            </>
-          ) : (
-            <>
-              <p>
-                Nell’esempio: corriere a € 12,00 IVA esclusa; spedizione
-                gratuita da € 300,00 di prodotti. È previsto anche il ritiro in
-                sede. Tempi, costi e condizioni effettivi sono da confermare.
-              </p>
-              <p className="muted">
-                <Truck size={16} /> Nessuna spedizione reale viene attivata.
-              </p>
-            </>
-          )}
-        </div>
+          ))}
+        </dl>
+        <p className="muted small-copy">
+          I dati di questo esempio non sostituiscono una scheda tecnica ufficiale.
+        </p>
       </section>
       <dialog
         ref={dialog}

@@ -26,19 +26,30 @@ export default async function ProductPage({
 }) {
   const p = catalogProvider.find((await params).slug);
   if (!p) notFound();
-  const related = products
-    .filter(
-      (x) =>
-        x.id !== p.id && (x.brand === p.brand || x.category === p.category),
-    )
-    .slice(0, 4);
-  const shown =
-    related.length >= 4
-      ? related
-      : [
-          ...related,
-          ...products.filter((x) => x.id !== p.id && !related.includes(x)),
-        ].slice(0, 4);
+  const others = products.filter((item) => item.id !== p.id);
+  const groups = [
+    {
+      title: "Prodotti correlati",
+      href: `/catalogo?categoria=${encodeURIComponent(p.category)}`,
+      label: `Tutti i prodotti: ${p.category}`,
+      items: others.filter((item) => item.category === p.category).slice(0, 4),
+    },
+    {
+      title: `Altri ricambi ${p.brand}`,
+      href: `/catalogo?brand=${encodeURIComponent(p.brand)}`,
+      label: `Esplora ${p.brand}`,
+      items: others.filter((item) => item.brand === p.brand).slice(0, 4),
+    },
+    {
+      title: "Altri ricambi per la tua gru",
+      href: `/catalogo?compatibilita=${encodeURIComponent(p.compatibility[0])}`,
+      label: "Esplora i ricambi",
+      items: others
+        .filter((item) => item.category !== p.category && item.brand !== p.brand &&
+          item.compatibility.some((brand) => p.compatibility.includes(brand)))
+        .slice(0, 4),
+    },
+  ].filter((group) => group.items.length > 0);
   return (
     <main id="contenuto">
       <div className="container product-page">
@@ -53,15 +64,15 @@ export default async function ProductPage({
           ]}
         />
         <ProductDetail product={p} />
-        <section className="section related">
-          <div className="section-heading">
-            <h2>Prodotti correlati</h2>
-            <Link className="text-link" href="/catalogo">
-              Vedi tutti i ricambi
-            </Link>
-          </div>
-          <ProductGrid products={shown} columns={4} />
-        </section>
+        {groups.map((group) => (
+          <section className="section related" key={group.title}>
+            <div className="section-heading">
+              <h2>{group.title}</h2>
+              <Link className="text-link" href={group.href}>{group.label}</Link>
+            </div>
+            <ProductGrid products={group.items} columns={4} />
+          </section>
+        ))}
       </div>
       <SupportBanner />
     </main>

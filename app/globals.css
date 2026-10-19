@@ -1929,7 +1929,9 @@ legend {
   color: #17883c;
 }
 .checkout-cta {
+  position: relative;
   display: flex;
+  justify-content: center;
   width: 100%;
   font-size: 14px;
   min-height: 49px;
@@ -1937,8 +1939,12 @@ legend {
   gap: 10px;
   padding-inline: 12px;
 }
-.checkout-cta > svg:last-child {
-  margin-left: auto;
+.checkout-cta > svg:first-child {
+  position: absolute;
+  left: 16px;
+}
+.checkout-cta > span {
+  text-align: center;
 }
 .secure-note {
   display: flex;
@@ -4681,4 +4687,100 @@ legend {
   .product-grid .product-name { font-size: 14px; }
   .product-grid .product-meta, .product-grid .stock { font-size: 11px; }
   .product-grid .buy-row.compact .button { font-size: 11px; }
+}
+
+/* Product information follows a single, uninterrupted reading order. */
+.product-intro .benefits.small {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  border: 0;
+  padding-top: 20px;
+}
+.product-intro .benefits.small > div {
+  display: block;
+  padding: 0;
+  border: 0;
+}
+.product-intro .benefits.small strong {
+  font-size: 15px;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  max-width: none;
+}
+.product-intro .benefits.small small {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 6px;
+  max-width: none;
+}
+.product-description {
+  margin: 36px 0 28px;
+}
+.product-description h2, .product-technical h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.product-description p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 100ch;
+}
+.product-technical {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.product-technical dl > div {
+  grid-template-columns: minmax(160px, 32%) 1fr;
+}
+.product-technical dt, .product-technical dd {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.product-technical .small-copy {
+  margin-top: 20px;
+  font-size: 13px;
+}
+@media (max-width: 540px) {
+  .product-intro .benefits.small {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .product-intro .benefits.small strong { font-size: 15px; }
+  .product-technical dl > div { grid-template-columns: 43% 57%; }
+  .product-technical dt, .product-technical dd { font-size: 13px; }
+  .related .section-heading { flex-wrap: wrap; }
+  .related .section-heading .text-link { font-size: 13px; }
+}
+
+/* Keep hover feedback to the requested palette inversion and card zoom. */
+.button:hover {
+  transform: none;
+}
+.primary:hover {
+  color: #ffb600;
+  background: #11170e;
+  border-color: #11170e;
+}
+.light-outline:hover {
+  color: #11170e;
+  background: #fff;
+  border-color: #fff;
+}
+.category-card,
+.product-card {
+  position: relative;
+  z-index: 0;
+  transition: transform 0.18s ease;
+}
+.category-card:hover,
+.product-card:hover {
+  z-index: 1;
+  transform: scale(1.025);
+  border-color: var(--line);
+  box-shadow: none;
+}
+.category-card:hover > img,
+.product-card:hover .product-image img {
+  transform: none;
 }
