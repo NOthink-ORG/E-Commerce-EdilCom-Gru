@@ -14,6 +14,8 @@ import {
   UserRound,
 } from "lucide-react";
 import { useStore } from "./store-provider";
+import { CartDrawer } from "./cart-drawer";
+import { SearchBar } from "./ui";
 import { brand } from "@/lib/catalog";
 import {
   categoryDirectory,
@@ -101,6 +103,9 @@ export function Header() {
   const { cart, info } = useStore();
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const cartButton = useRef<HTMLButtonElement>(null);
+  const closeCart = () => { setCartOpen(false); requestAnimationFrame(() => cartButton.current?.focus()); };
   return (
     <>
       <div className="topbar">
@@ -132,7 +137,7 @@ export function Header() {
             className="logo"
           >
             <img
-              src="/images/logo.webp"
+              src="/images/edilcomgru-logo.svg"
               alt={brand.name}
               width={178}
               height={51}
@@ -179,14 +184,18 @@ export function Header() {
             >
               {search ? <X size={21} /> : <Search size={21} />}
             </button>
-            <Link
+            <button
+              ref={cartButton}
               className="cart-link icon-button"
-              href="/carrello"
+              type="button"
+              aria-expanded={cartOpen}
+              aria-haspopup="dialog"
+              onClick={() => setCartOpen(true)}
               aria-label={`Carrello, ${cart.reduce((s, x) => s + x.quantity, 0)} articoli`}
             >
               <ShoppingCart size={21} />
               <span>{cart.reduce((s, x) => s + x.quantity, 0)}</span>
-            </Link>
+            </button>
             <Link className="button primary catalog-button" href="/catalogo">
               Esplora il catalogo
             </Link>
@@ -200,20 +209,9 @@ export function Header() {
             </button>
           </div>
         </div>
-        {search && (
-          <form className="container header-search" action="/catalogo">
-            <Search size={20} />
-            <input
-              autoFocus
-              type="search"
-              name="q"
-              placeholder="Cerca un ricambio, codice o marca"
-              aria-label="Cerca nel catalogo"
-            />
-            <button className="button primary">Cerca</button>
-          </form>
-        )}
+        {search && <div className="container header-search"><SearchBar action="/catalogo" popularTerms={[]} placeholder="Cerca un ricambio, codice o marca" /></div>}
       </header>
+      {cartOpen && <CartDrawer onClose={closeCart} />}
     </>
   );
 }
@@ -278,13 +276,11 @@ export function Footer() {
         <Benefits />
         <div className="brands-section">
           <h2>Ricambi per i principali marchi di gru</h2>
-          <img
-            src="/images/brands.webp"
-            alt="Esempi di marchi nei mockup: Manitowoc, Potain, Terex, Liebherr, Saez, Comedil. Partnership non verificate."
-            width={1000}
-            height={50}
-            loading="lazy"
-          />
+          <div className="brand-logos" aria-label="Marchi presenti nel catalogo demo">
+            {["comedil", "liebherr", "manitowoc", "potain", "saez", "terex"].map((name) => (
+              <img key={name} src={`/images/${name}.svg`} alt={name} loading="lazy" />
+            ))}
+          </div>
         </div>
       </section>
       <footer className="footer">
@@ -292,7 +288,7 @@ export function Footer() {
           <div className="footer-about">
             <Link href="/">
               <img
-                src="/images/logo-footer.webp"
+                src="/images/edilcomgru-logo-footer.svg"
                 alt={brand.name}
                 width={160}
                 height={46}

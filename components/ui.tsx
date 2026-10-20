@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
 import { Minus, Plus, ShoppingCart, Search, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { products } from "@/lib/catalog";
+import { normalizeSearch, searchRank } from "@/lib/catalog-logic";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
 import { isPurchasable, stockLabels } from "@/lib/catalog-logic";
@@ -158,67 +161,64 @@ export function Breadcrumbs({
   );
 }
 export function SearchBar({
-  initial = "",
-  category = false,
-  action = "/catalogo",
-  fields = [],
-  placeholder,
-  popularTerms,
-  children,
+  initial = "", category = false, action = "/catalogo", fields = [], placeholder,
+  popularTerms, children, source = products,
 }: {
-  initial?: string;
-  category?: boolean;
-  action?: string;
-  fields?: [string, string][];
-  placeholder?: string;
-  popularTerms?: string[];
-  children?: React.ReactNode;
+  initial?: string; category?: boolean; action?: string; fields?: [string, string][];
+  placeholder?: string; popularTerms?: string[]; children?: React.ReactNode; source?: Product[];
 }) {
-  const popular =
-    popularTerms ??
-    (category
-      ? ["hetronic", "hbc", "autec", "ricevitore", "batteria", "antenna"]
-      : ["radiocomando", "motore", "fune", "finecorsa", "potain", "manitowoc"]);
-  return (
-    <div className="search-panel">
-      <form action={action} className="search-form">
-        <Search size={21} />
-        {fields.map(([name, value], i) => (
-          <input key={`${name}-${i}`} type="hidden" name={name} value={value} />
-        ))}
-        <input
-          name="q"
-          aria-label={action === "/brand" ? "Cerca brand" : "Cerca ricambi"}
-          defaultValue={initial}
-          type="search"
-          placeholder={
-            placeholder ??
-            (category
-              ? "Cerca tra i ricambi (es. Hetronic, HBC, trasmettitore…)"
-              : "Cerca per codice, marca o ricambio (es. motore, radiocomando, funi…)")
-          }
-        />
-        <button className="button primary">
-          Cerca <Search size={17} />
-        </button>
-      </form>
-      {popular.length > 0 && (
-        <div className="popular">
-          <span>Ricerche popolari:</span>
-          {popular.map((q) => {
-            const params = new URLSearchParams(fields);
-            params.set("q", q);
-            return (
-              <Link href={`${action}?${params.toString()}`} key={q}>
-                {q}
-              </Link>
-            );
-          })}
-        </div>
-      )}
-      {children}
-    </div>
-  );
+  const router = useRouter();
+  const id = useId();
+  const [value, setValue] = useState(initial);
+  const [debounced, setDebounced] = useState(initial);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
+  const root = useRef<HTMLDivElement>(null);
+  useEffect(() => { const timer = setTimeout(() => setDebounced(value.trim()), 180); return () => clearTimeout(timer); }, [value]);
+  const terms = popularTerms ?? (category
+    ? ["hetronic", "hbc", "autec", "ricevitore", "batteria", "antenna"]
+    : ["radiocomando", "motore", "fune", "finecorsa", "potain", "manitowoc"]);
+  const matches = action === "/brand" ? [] : source
+    .map(product => ({ product, rank: searchRank(product, debounced) }))
+    .filter((entry): entry is { product: Product; rank: number } => entry.rank !== null)
+    .sort((a, b) => a.rank - b.rank || a.product.name.localeCompare(b.product.name, "it"))
+    .slice(0, 6);
+  const brandMatches = action === "/brand" ? [...new Set(products.map(p => p.brand))]
+    .filter(name => normalizeSearch(name).includes(normalizeSearch(debounced))).slice(0, 6) : [];
+  const suggestions = action === "/brand" ? brandMatches.map(name => ({ label: name, detail: "Brand", href: `/brand?q=${encodeURIComponent(name)}` }))
+    : matches.map(({ product }) => ({ label: product.name, detail: `Cod. ${product.code}`, href: `/prodotti/${product.slug}` }));
+  const visible = open && debounced.length > 0;
+  function submit(query: string) {
+    const params = new URLSearchParams(fields);
+    if (query.trim()) params.set("q", query.trim());
+    setOpen(false);
+    router.push(`${action}${params.size ? `?${params.toString()}` : ""}`);
+  }
+  return <div className="search-panel" ref={root} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
+    <form className="search-form" onSubmit={event => { event.preventDefault(); submit(value); }} role="search">
+      <Search size={21} />
+      <input name="q" value={value} onChange={event => { setValue(event.target.value); setOpen(true); setActive(-1); }}
+        onFocus={() => setOpen(true)} onKeyDown={event => {
+          if (event.key === "Escape") { setOpen(false); setActive(-1); }
+          if (visible && event.key === "ArrowDown") { event.preventDefault(); setActive(i => Math.min(i + 1, suggestions.length - 1)); }
+          if (visible && event.key === "ArrowUp") { event.preventDefault(); setActive(i => Math.max(i - 1, -1)); }
+          if (visible && event.key === "Enter" && active >= 0) { event.preventDefault(); router.push(suggestions[active].href); setOpen(false); }
+        }}
+        aria-label={action === "/brand" ? "Cerca brand" : "Cerca ricambi"} type="search" autoComplete="off"
+        role="combobox" aria-autocomplete="list" aria-expanded={visible} aria-controls={`${id}-results`}
+        aria-activedescendant={visible && active >= 0 ? `${id}-item-${active}` : undefined}
+        placeholder={placeholder ?? (category ? "Cerca tra i ricambi (es. Hetronic, HBC, trasmettitore…)" : "Cerca per codice, marca o ricambio (es. motore, radiocomando, funi…)")} />
+      <button className="button primary" type="submit">Cerca <Search size={17} /></button>
+    </form>
+    {visible && <div className="search-suggestions" id={`${id}-results`} role="listbox" aria-label="Suggerimenti di ricerca">
+      {suggestions.length ? suggestions.map((item, index) => <Link id={`${id}-item-${index}`} role="option" aria-selected={active === index}
+        key={item.href} href={item.href} onMouseDown={event => event.preventDefault()} onClick={() => setOpen(false)}>
+        <span>{item.label}</span><small>{item.detail}</small></Link>) : <p>Nessun risultato tra i dati demo.</p>}
+      {suggestions.length > 0 && <button type="button" className="search-all" onClick={() => submit(value)}>Vedi tutti i risultati per “{value.trim()}”</button>}
+    </div>}
+    {terms.length > 0 && <div className="popular"><span>Ricerche popolari:</span>{terms.map(q => <button type="button" key={q} onClick={() => { setValue(q); submit(q); }}>{q}</button>)}</div>}
+    {children}
+  </div>;
 }
 export function SectionHeading({
   eyebrow,

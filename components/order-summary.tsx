@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { LockKeyhole, Tag, Check } from "lucide-react";
 import { useState } from "react";
-import { products, calculateOrder, money } from "@/lib/catalog";
+import { products, calculateOrder, money, taxRate } from "@/lib/catalog";
 import { useStore } from "./store-provider";
 export function OrderSummary({
   checkout = false,
@@ -78,7 +78,7 @@ export function OrderSummary({
           <dd>{money(totals.taxable)}</dd>
         </div>
         <div>
-          <dt>IVA (22%)</dt>
+          <dt>IVA ({Math.round(taxRate * 100)}%)</dt>
           <dd>{money(totals.vat)}</dd>
         </div>
       </dl>

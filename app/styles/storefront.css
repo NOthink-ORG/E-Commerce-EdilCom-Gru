@@ -521,3 +521,7 @@
   width: 34px;
   height: 34px;
 }
+.brand-logos { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px 32px; margin: 26px auto 3px; }
+.brand-logos img { display: block; width: auto; height: auto; max-width: min(190px, 28vw); max-height: 52px; object-fit: contain; }
+@media (max-width: 540px) { .brand-logos { justify-content: center; gap: 20px 24px; } .brand-logos img { max-width: 128px; max-height: 42px; } }
+.footer-about img { opacity: 1; }

@@ -109,6 +109,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
         <SearchBar
           key={`${query}-${resetRevision}`}
           initial={query}
+          source={source}
           category
           action={pathname}
           fields={[...current.entries()].filter(

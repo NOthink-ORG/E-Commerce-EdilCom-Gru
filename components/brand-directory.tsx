@@ -43,7 +43,7 @@ export function BrandDirectory() {
               className="category-card directory-card brand-card"
             >
               <div
-                className={`brand-wordmark brand-wordmark-${brand.slug}`}
+                className="brand-wordmark"
                 aria-hidden="true"
               >
                 {brand.name}

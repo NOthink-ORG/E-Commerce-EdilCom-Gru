@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-react";
 import { ProductGallery } from "./product-gallery";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
+import { priceWithTax } from "@/lib/order";
 import { StockBadge, AddToCart } from "./ui";
 import { SupportButton } from "./support-button";
 import { Benefits } from "./shell";
@@ -42,7 +43,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <span>IVA esclusa{product.unit === "metro" ? " / metro" : ""}</span>
           </div>
           <p className="muted inclusive-price">
-            {money(Math.round(product.price * 122) / 100)} IVA inclusa
+            {money(priceWithTax(product.price))} IVA inclusa
           </p>
           <div className="detail-purchase">
             <AddToCart product={product} />

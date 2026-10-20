@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { products } from "../lib/catalog.ts";
 import { addCartItem, sanitizeCart } from "../lib/cart-logic.ts";
-import { calculateOrder } from "../lib/order.ts";
+import { calculateOrder, priceWithTax } from "../lib/order.ts";
 import { catalogCanonical, collectionCanonical } from "../lib/seo.ts";
 test("canonical solo per equivalenze esatte con una categoria o un brand", () => {
   assert.equal(
@@ -105,4 +105,12 @@ test("soglia spedizione dopo sconto, ritiro e carrello vuoto", () => {
   );
   assert.equal(calculateOrder([]).total, 0);
   assert.equal(calculateOrder([{ product, quantity: -1 }]).subtotal, 0);
+});
+
+test("prezzo IVA inclusa usa lo stesso arrotondamento del riepilogo", () => {
+  for (const price of [8.9, 39.99, 1250]) {
+    const product = { ...products[0], price };
+    const totals = calculateOrder([{ product, quantity: 1 }], "pickup");
+    assert.equal(priceWithTax(price), totals.total);
+  }
 });

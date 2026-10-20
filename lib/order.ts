@@ -1,5 +1,9 @@
 import type { Product } from "./product.ts";
 export const taxRate = 0.22;
+export function priceWithTax(price: number) {
+  const cents = Math.round(price * 100);
+  return Math.round(cents * (1 + taxRate)) / 100;
+}
 export function calculateOrder(
   items: { product: Product; quantity: number }[],
   shippingMode = "courier",

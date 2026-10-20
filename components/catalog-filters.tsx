@@ -82,8 +82,8 @@ export function CatalogFilters({
     voltage,
     sliderMax,
   } = values;
-  const allCategories = [...new Set(source.map((p) => p.category))];
-  const allBrands = [...new Set(source.map((p) => p.brand))];
+  const allCategories = [...new Set(source.map((p) => p.category))].sort((a, b) => a.localeCompare(b, "it"));
+  const allBrands = [...new Set(source.map((p) => p.brand))].sort((a, b) => a.localeCompare(b, "it"));
   function checkGroup(
     title: string,
     options: string[],
@@ -142,7 +142,7 @@ export function CatalogFilters({
         )}
       {checkGroup(
         "Compatibilità demo",
-        [...new Set(source.flatMap((p) => p.compatibility))],
+        [...new Set(source.flatMap((p) => p.compatibility))].sort((a, b) => a.localeCompare(b, "it")),
         "compatibilita",
         compatible,
         (p, v) => p.compatibility.includes(v),
@@ -199,7 +199,7 @@ export function CatalogFilters({
       </fieldset>
       {checkGroup(
         "Tensione / alimentazione",
-        [...new Set(source.flatMap((p) => (p.voltage ? [p.voltage] : [])))],
+        [...new Set(source.flatMap((p) => (p.voltage ? [p.voltage] : [])))].sort((a, b) => a.localeCompare(b, "it")),
         "tensione",
         voltage,
         (p, v) => p.voltage === v,
