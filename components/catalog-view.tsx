@@ -1,7 +1,6 @@
 "use client";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import {
   SlidersHorizontal,
   X,
@@ -11,15 +10,28 @@ import {
   ChevronLeft,
   RotateCcw,
 } from "lucide-react";
-import { products, categories, money, type Product } from "@/lib/catalog";
+import { products } from "@/lib/catalog";
 import { ProductGrid, SearchBar } from "./ui";
+import { CatalogFilters } from "./catalog-filters";
 import { FilterDrawer } from "./filter-drawer";
+import { normalizeSearch, type CatalogScope } from "@/lib/catalog-navigation";
+import { CollectionLinks } from "./collection-sections";
 const pageSize = 12;
-const allCategories = [...new Set(products.map((p) => p.category))];
-const allBrands = [...new Set(products.map((p) => p.brand))];
-export function CatalogView() {
+export function CatalogView({
+  scope = {},
+  children,
+}: {
+  scope?: CatalogScope;
+  children?: React.ReactNode;
+}) {
   const params = useSearchParams(),
-    router = useRouter();
+    router = useRouter(),
+    pathname = usePathname();
+  const source = products.filter(
+    (product) =>
+      (!scope.category || product.category === scope.category) &&
+      (!scope.brand || product.brand === scope.brand),
+  );
   const [drawer, setDrawer] = useState(false);
   const [layout, setLayout] = useState("grid");
   const query = params.get("q") || "",
@@ -48,19 +60,16 @@ export function CatalogView() {
       ).forEach((v) => next.append(key, v));
     } else if (value) next.set(key, value);
     else next.delete(key);
-    router.replace(`/catalogo?${next.toString()}`, { scroll: false });
+    router.replace(`${pathname}${next.size ? `?${next.toString()}` : ""}`, {
+      scroll: false,
+    });
   }
-  const normalize = (s: string) =>
-    s
-      .toLocaleLowerCase("it")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  let filtered = products.filter((p) => {
-    const searchable = normalize(
+  let filtered = source.filter((p) => {
+    const searchable = normalizeSearch(
       `${p.name} ${p.code} ${p.brand} ${p.category}`,
     );
     return (
-      normalize(query)
+      normalizeSearch(query)
         .split(/\s+/)
         .every((q) => searchable.includes(q)) &&
       (!selectedCategories.length || selectedCategories.includes(p.category)) &&
@@ -85,137 +94,51 @@ export function CatalogView() {
   const pages = Math.max(1, Math.ceil(filtered.length / pageSize)),
     page = Math.max(1, Math.min(pages, Number(params.get("pagina")) || 1)),
     visible = filtered.slice((page - 1) * pageSize, page * pageSize);
-  function checkGroup(
-    title: string,
-    options: string[],
-    key: string,
-    chosen: string[],
-    count: (p: Product, v: string) => boolean,
-  ) {
-    return (
-      <fieldset>
-        <legend>{title}</legend>
-        {options.map((v) => (
-          <label className="check-label" key={v}>
-            <input
-              type="checkbox"
-              checked={chosen.includes(v)}
-              onChange={() => change(key, v, true)}
-            />
-            <span>{v}</span>
-            <small>({products.filter((p) => count(p, v)).length})</small>
-          </label>
-        ))}
-      </fieldset>
-    );
-  }
   const filters = (
-    <>
-      <div className="filter-heading">
-        <h2>Filtri di ricerca</h2>
-        <button
-          className="text-button"
-          onClick={() => router.replace("/catalogo", { scroll: false })}
-        >
-          Pulisci filtri
-        </button>
-        <button
-          className="icon-button close-filters"
-          onClick={() => setDrawer(false)}
-          aria-label="Chiudi filtri"
-        >
-          <X size={19} />
-        </button>
-      </div>
-      {checkGroup(
-        "Categoria",
-        allCategories,
-        "categoria",
+    <CatalogFilters
+      source={source}
+      scope={scope}
+      values={{
         selectedCategories,
-        (p, v) => p.category === v,
-      )}
-      {checkGroup("Brand", allBrands, "brand", brands, (p, v) => p.brand === v)}
-      {checkGroup(
-        "Compatibilità demo",
-        ["Potain", "Terex", "Liebherr"],
-        "compatibilita",
+        brands,
         compatible,
-        (p, v) => p.compatibility.includes(v),
-      )}
-      <fieldset>
-        <legend>Disponibilità</legend>
-        <label className="check-label">
-          <input
-            type="checkbox"
-            checked={available}
-            onChange={() => change("disponibile", available ? "" : "1")}
-          />
-          <span>Solo prodotti disponibili</span>
-        </label>
-      </fieldset>
-      <fieldset>
-        <legend>Fascia prezzo</legend>
-        <div className="price-inputs">
-          <label>
-            <span className="sr-only">Prezzo minimo</span>
-            <input
-              type="number"
-              aria-label="Prezzo minimo"
-              min={0}
-              max={2000}
-              value={min || ""}
-              placeholder="Da €"
-              onChange={(e) => change("min", e.target.value)}
-            />
-          </label>
-          <label>
-            <span className="sr-only">Prezzo massimo</span>
-            <input
-              type="number"
-              aria-label="Prezzo massimo"
-              min={0}
-              max={2000}
-              value={max}
-              onChange={(e) => change("max", e.target.value)}
-            />
-          </label>
-        </div>
-        <input
-          className="price-range"
-          aria-label="Limite prezzo massimo"
-          type="range"
-          min={0}
-          max={2000}
-          step={1}
-          value={sliderMax}
-          onChange={(e) => setPriceDraft({ source: max, value: Number(e.target.value) })}
-          onPointerUp={(e) => commitPrice(e.currentTarget.value)}
-          onKeyUp={(e) => commitPrice(e.currentTarget.value)}
-          onBlur={(e) => commitPrice(e.currentTarget.value)}
-        />
-        <small className="muted">Fino a {money(sliderMax)} · IVA esclusa</small>
-      </fieldset>
-      {checkGroup(
-        "Tensione / alimentazione",
-        ["24 V", "400 V", "Batteria ricaricabile"],
-        "tensione",
+        available,
+        min,
+        max,
         voltage,
-        (p, v) => p.voltage === v,
-      )}
-      <button
-        className="button primary apply-filters"
-        onClick={() => setDrawer(false)}
-      >
-        Mostra {filtered.length} prodotti
-      </button>
-    </>
+        sliderMax,
+      }}
+      filteredCount={filtered.length}
+      change={change}
+      onReset={() => router.replace(pathname, { scroll: false })}
+      onClose={() => setDrawer(false)}
+      onPriceDraft={(value) => setPriceDraft({ source: max, value })}
+      onPriceCommit={commitPrice}
+    />
   );
   return (
     <>
       <div className="container catalog-search">
-        <SearchBar key={query} initial={query} category />
+        <SearchBar
+          key={query}
+          initial={query}
+          category
+          action={pathname}
+          fields={[...params.entries()].filter(
+            ([key]) => key !== "q" && key !== "pagina",
+          )}
+          placeholder={
+            scope.category
+              ? `Cerca tra ${scope.category.toLowerCase()}…`
+              : scope.brand
+                ? `Cerca tra i ricambi ${scope.brand}…`
+                : undefined
+          }
+        />
       </div>
-      <section className="container catalog-layout">
+      {children}
+      {!scope.brand && <CollectionLinks />}
+      <section className="container catalog-layout" id="prodotti">
         <aside className="filters desktop-filters" aria-label="Filtri catalogo">
           {filters}
         </aside>
@@ -266,29 +189,6 @@ export function CatalogView() {
               </div>
             </div>
           </div>
-          <div className="subcategories" id="categorie">
-            {categories.slice(0, 5).map((c) => (
-              <Link
-                key={c.name}
-                href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
-              >
-                <img
-                  src={`/images/demo/${c.image}.jpg`}
-                  width={48}
-                  height={48}
-                  alt=""
-                />
-                <span>
-                  <strong>{c.name}</strong>
-                  <small>
-                    {products.filter((p) => p.category === c.name).length}{" "}
-                    prodotti
-                  </small>
-                </span>
-
-              </Link>
-            ))}
-          </div>
           {(query ||
             selectedCategories.length > 0 ||
             brands.length > 0 ||
@@ -304,7 +204,7 @@ export function CatalogView() {
               </span>
               <button
                 className="text-button"
-                onClick={() => router.replace("/catalogo", { scroll: false })}
+                onClick={() => router.replace(pathname, { scroll: false })}
               >
                 <X size={14} /> Rimuovi tutti
               </button>
@@ -321,7 +221,7 @@ export function CatalogView() {
               <p>Prova un altro codice o rimuovi alcuni filtri.</p>
               <button
                 className="button primary"
-                onClick={() => router.replace("/catalogo", { scroll: false })}
+                onClick={() => router.replace(pathname, { scroll: false })}
               >
                 <RotateCcw size={17} />
                 Azzera la ricerca

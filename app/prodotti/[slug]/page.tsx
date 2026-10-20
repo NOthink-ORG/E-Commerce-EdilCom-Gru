@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { catalogProvider, products } from "@/lib/catalog";
+import { categoryHref, brandHref } from "@/lib/catalog-navigation";
 import { Breadcrumbs, ProductGrid } from "@/components/ui";
 import { ProductDetail } from "@/components/product-detail";
 import { SupportBanner } from "@/components/shell";
@@ -17,6 +18,7 @@ export async function generateMetadata({
   return {
     title: p?.name || "Prodotto non trovato",
     description: p?.description,
+    alternates: { canonical: `/prodotti/${(await params).slug}` },
   };
 }
 export default async function ProductPage({
@@ -30,13 +32,13 @@ export default async function ProductPage({
   const groups = [
     {
       title: "Prodotti correlati",
-      href: `/catalogo?categoria=${encodeURIComponent(p.category)}`,
+      href: categoryHref(p.category),
       label: `Tutti i prodotti: ${p.category}`,
       items: others.filter((item) => item.category === p.category).slice(0, 4),
     },
     {
       title: `Altri ricambi ${p.brand}`,
-      href: `/catalogo?brand=${encodeURIComponent(p.brand)}`,
+      href: brandHref(p.brand),
       label: `Esplora ${p.brand}`,
       items: others.filter((item) => item.brand === p.brand).slice(0, 4),
     },
@@ -58,7 +60,7 @@ export default async function ProductPage({
             { label: "Ricambi", href: "/catalogo" },
             {
               label: p.category,
-              href: `/catalogo?categoria=${encodeURIComponent(p.category)}`,
+              href: categoryHref(p.category),
             },
             { label: p.name },
           ]}

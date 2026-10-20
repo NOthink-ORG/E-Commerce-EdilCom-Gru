@@ -5,6 +5,8 @@ import {
   type Product,
 } from "@/lib/catalog";
 import { SearchBar, ProductGrid, SectionHeading } from "./ui";
+import { CategoryCard } from "./collection-sections";
+import { categoryDirectory } from "@/lib/catalog-navigation";
 import { SupportButton } from "./support-button";
 export function Hero({
   title = "Ricambi per gru,",
@@ -54,25 +56,15 @@ export function CategoryShowcase({
       <SectionHeading
         eyebrow="Categorie principali"
         title="Trova il ricambio giusto per la tua gru"
-        link="/catalogo#categorie"
+        link="/categorie"
       />
       <div className="category-grid">
         {items.slice(0, 4).map((c) => (
-          <Link
+          <CategoryCard
             key={c.name}
-            className="category-card"
-            href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
-          >
-            <img
-              src={`/images/demo/${c.image}.jpg`}
-              alt={c.name}
-              width={180}
-              height={130}
-              loading="lazy"
-            />
-            <h3>{c.name}</h3>
-            <p>{c.description}</p>
-          </Link>
+            category={categoryDirectory.find((item) => item.name === c.name)!}
+            compact
+          />
         ))}
       </div>
     </section>
@@ -87,7 +79,12 @@ export function FeaturedProducts({
 }) {
   return (
     <section className="container section featured">
-      <SectionHeading eyebrow="Prodotti in evidenza" title={title} link="/catalogo" linkLabel="Esplora il catalogo" />
+      <SectionHeading
+        eyebrow="Prodotti in evidenza"
+        title={title}
+        link="/catalogo"
+        linkLabel="Esplora il catalogo"
+      />
       <ProductGrid products={items.slice(0, 4)} columns={4} />
     </section>
   );

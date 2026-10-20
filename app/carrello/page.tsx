@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui";
 import { CartView } from "@/components/cart-view";
 import { SupportBanner } from "@/components/shell";
-export const metadata: Metadata = { title: "Il tuo carrello" };
+export const metadata: Metadata = { alternates: { canonical: "/carrello" }, title: "Il tuo carrello" };
 export default function CartPage() {
   return (
     <main id="contenuto">

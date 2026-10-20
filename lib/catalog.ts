@@ -270,6 +270,10 @@ export const categories = [
     image: "motor",
     description: "Motori elettrici, riduttori e freni",
   },
+  { name: "Batterie", image: "battery", description: "Batterie per radiocomandi e sistemi di comando" },
+  { name: "Ricevitori", image: "receiver", description: "Unità di ricezione e controllo per radiocomandi" },
+  { name: "Accessori", image: "belt", description: "Cinghie, antenne e accessori per gru" },
+  { name: "Caricabatterie", image: "charger", description: "Caricabatterie e alimentatori per radiocomandi" },
 ];
 export const catalogProvider = {
   list: () => products,

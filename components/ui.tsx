@@ -1,15 +1,10 @@
 "use client";
 import Link from "next/link";
-import {
-  Minus,
-  Plus,
-  ShoppingCart,
-  Search,
-  ChevronRight,
-} from "lucide-react";
+import { Minus, Plus, ShoppingCart, Search, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
+import { brandHref } from "@/lib/catalog-navigation";
 import { useStore } from "./store-provider";
 export function StockBadge({ stock }: { stock: Product["stock"] }) {
   return (
@@ -112,7 +107,9 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
       <div className="product-meta">
         <span>Cod. {product.code}</span>
-        <span className="brand-tag">{product.brand}</span>
+        <Link className="brand-tag" href={brandHref(product.brand)}>
+          {product.brand}
+        </Link>
       </div>
       <Price product={product} />
       <AddToCart product={product} compact />
@@ -158,40 +155,63 @@ export function Breadcrumbs({
 export function SearchBar({
   initial = "",
   category = false,
+  action = "/catalogo",
+  fields = [],
+  placeholder,
+  popularTerms,
+  children,
 }: {
   initial?: string;
   category?: boolean;
+  action?: string;
+  fields?: [string, string][];
+  placeholder?: string;
+  popularTerms?: string[];
+  children?: React.ReactNode;
 }) {
-  const popular = category
-    ? ["hetronic", "hbc", "autec", "ricevitore", "batteria", "antenna"]
-    : ["radiocomando", "motore", "fune", "finecorsa", "potain", "manitowoc"];
+  const popular =
+    popularTerms ??
+    (category
+      ? ["hetronic", "hbc", "autec", "ricevitore", "batteria", "antenna"]
+      : ["radiocomando", "motore", "fune", "finecorsa", "potain", "manitowoc"]);
   return (
     <div className="search-panel">
-      <form action="/catalogo" className="search-form">
+      <form action={action} className="search-form">
         <Search size={21} />
+        {fields.map(([name, value], i) => (
+          <input key={`${name}-${i}`} type="hidden" name={name} value={value} />
+        ))}
         <input
           name="q"
-          aria-label="Cerca ricambi"
+          aria-label={action === "/brand" ? "Cerca brand" : "Cerca ricambi"}
           defaultValue={initial}
-          placeholder={
-            category
-              ? "Cerca tra i ricambi (es. Hetronic, HBC, trasmettitore…)"
-              : "Cerca per codice, marca o ricambio (es. motore, radiocomando, funi…)"
-          }
           type="search"
+          placeholder={
+            placeholder ??
+            (category
+              ? "Cerca tra i ricambi (es. Hetronic, HBC, trasmettitore…)"
+              : "Cerca per codice, marca o ricambio (es. motore, radiocomando, funi…)")
+          }
         />
         <button className="button primary">
           Cerca <Search size={17} />
         </button>
       </form>
-      <div className="popular">
-        <span>Ricerche popolari:</span>
-        {popular.map((q) => (
-          <Link href={`/catalogo?q=${q}`} key={q}>
-            {q}
-          </Link>
-        ))}
-      </div>
+      {popular.length > 0 && (
+        <div className="popular">
+          <span>Ricerche popolari:</span>
+          {popular.map((q) => {
+            const params = new URLSearchParams(fields);
+            params.set("q", q);
+            return (
+              <Link href={`${action}?${params.toString()}`} key={q}>
+                {q}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+      {children}
     </div>
   );
 }

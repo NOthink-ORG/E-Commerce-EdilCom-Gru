@@ -1,22 +1,27 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
+import { catalogCanonical, pageMetadata, type SearchParams } from "@/lib/seo";
+import { CollectionHero } from "@/components/collection-sections";
 import { CatalogView } from "@/components/catalog-view";
 import { SupportBanner } from "@/components/shell";
-export const metadata: Metadata = { title: "Catalogo ricambi" };
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  return pageMetadata(
+    "Catalogo ricambi",
+    "Ricambi per gru: esplora categorie, brand e prodotti del catalogo dimostrativo Edilcom Gru.",
+    catalogCanonical(await searchParams),
+  );
+}
 export default function CatalogPage() {
   return (
     <main id="contenuto">
-      <section className="hero category-hero">
-        <div className="container">
-          <p className="hero-breadcrumb">Home / Ricambi / Catalogo</p>
-          <h1>Ricambi per la tua gru</h1>
-          <p>
-            Comandi, componenti e accessori per il sollevamento.
-            <br />
-            Trova il ricambio giusto, in pochi passi.
-          </p>
-        </div>
-      </section>
+      <CollectionHero
+        title="Ricambi per la tua gru"
+        description="Comandi, componenti e accessori per il sollevamento. Trova il ricambio giusto, in pochi passi."
+        items={[{ label: "Catalogo" }]}
+      />
       <Suspense
         fallback={
           <div className="container loading" role="status">

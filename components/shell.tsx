@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Search,
   ShoppingCart,
@@ -14,7 +14,89 @@ import {
   UserRound,
 } from "lucide-react";
 import { useStore } from "./store-provider";
-import { categories, products, brand } from "@/lib/catalog";
+import { brand } from "@/lib/catalog";
+import {
+  categoryDirectory,
+  brandDirectory,
+  categoryHref,
+  brandHref,
+} from "@/lib/catalog-navigation";
+function CollectionMenu({
+  label,
+  href,
+  items,
+  onNavigate,
+}: {
+  label: string;
+  href: string;
+  items: { name: string; href: string }[];
+  onNavigate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const container = useRef<HTMLDivElement>(null);
+  const id = `navigation-${label.toLowerCase()}`;
+  return (
+    <div
+      className="nav-dropdown"
+      data-open={open}
+      ref={container}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          container.current
+            ?.querySelector<HTMLAnchorElement>(":scope > a")
+            ?.focus();
+        }
+        if (event.key === "ArrowDown" && !open) {
+          event.preventDefault();
+          setOpen(true);
+          requestAnimationFrame(() =>
+            container.current
+              ?.querySelector<HTMLAnchorElement>(".dropdown-content a")
+              ?.focus(),
+          );
+        }
+      }}
+    >
+      <Link
+        href={href}
+        onClick={() => {
+          setOpen(false);
+          onNavigate();
+        }}
+      >
+        {label}
+      </Link>
+      <button
+        aria-label={`Mostra ${label.toLowerCase()}`}
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen(!open)}
+      >
+        <ChevronDown size={13} />
+      </button>
+      <div id={id} className="dropdown-content" hidden={!open}>
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => {
+              setOpen(false);
+              onNavigate();
+            }}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 export function Header() {
   const { cart, support, info } = useStore();
   const [menu, setMenu] = useState(false);
@@ -63,40 +145,24 @@ export function Header() {
             <Link onClick={() => setMenu(false)} href="/catalogo">
               Ricambi <ChevronDown size={13} />
             </Link>
-            <div className="nav-dropdown">
-              <button>
-                Categorie <ChevronDown size={13} />
-              </button>
-              <div className="dropdown-content">
-                {categories.map((c) => (
-                  <Link
-                    key={c.name}
-                    onClick={() => setMenu(false)}
-                    href={`/catalogo?categoria=${encodeURIComponent(c.name)}`}
-                  >
-                    {c.name}
-
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div className="nav-dropdown brand-dropdown">
-              <button>
-                Brand <ChevronDown size={13} />
-              </button>
-              <div className="dropdown-content">
-                {[...new Set(products.map((p) => p.brand))].map((name) => (
-                  <Link
-                    key={name}
-                    onClick={() => setMenu(false)}
-                    href={`/catalogo?brand=${encodeURIComponent(name)}`}
-                  >
-                    {name}
-
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <CollectionMenu
+              label="Categorie"
+              href="/categorie"
+              onNavigate={() => setMenu(false)}
+              items={categoryDirectory.map((item) => ({
+                name: item.name,
+                href: categoryHref(item.name),
+              }))}
+            />
+            <CollectionMenu
+              label="Brand"
+              href="/brand"
+              onNavigate={() => setMenu(false)}
+              items={brandDirectory.map((item) => ({
+                name: item.name,
+                href: brandHref(item.name),
+              }))}
+            />
             <button
               onClick={() => {
                 support();
@@ -256,8 +322,8 @@ export function Footer() {
           <div>
             <h3>Shop</h3>
             <Link href="/catalogo">Ricambi</Link>
-            <Link href="/catalogo#categorie">Categorie</Link>
-            <Link href="/catalogo?brand=Hetronic">Brand</Link>
+            <Link href="/categorie">Categorie</Link>
+            <Link href="/brand">Brand</Link>
             <Link href="/carrello">Carrello</Link>
           </div>
           <div>

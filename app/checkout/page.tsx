@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CheckoutView } from "@/components/checkout-view";
-export const metadata: Metadata = { title: "Checkout demo" };
+export const metadata: Metadata = { alternates: { canonical: "/checkout" }, title: "Checkout demo" };
 export default function CheckoutPage() {
   return (
     <main id="contenuto" className="container checkout-page">

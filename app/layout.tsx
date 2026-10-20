@@ -3,6 +3,7 @@ import { StoreProvider } from "@/components/store-provider";
 import { Header, Footer } from "@/components/shell";
 import "./globals.css";
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: {
     default: "Edilcom Gru — Ricambi per gru e sollevamento",
     template: "%s | Edilcom Gru",
