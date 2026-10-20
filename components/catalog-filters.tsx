@@ -1,6 +1,7 @@
 "use client";
+import { useState } from "react";
 import { X } from "lucide-react";
-import { money, type Product } from "@/lib/catalog";
+import { money, catalogPriceLimit, type Product } from "@/lib/catalog";
 import type { CatalogScope } from "@/lib/catalog-navigation";
 type FilterValues = {
   selectedCategories: string[];
@@ -12,6 +13,44 @@ type FilterValues = {
   voltage: string[];
   sliderMax: number;
 };
+function PriceInput({
+  value,
+  label,
+  placeholder,
+  onCommit,
+}: {
+  value: number;
+  label: string;
+  placeholder?: string;
+  onCommit: (value: string) => void;
+}) {
+  const [draft, setDraft] = useState(String(value || ""));
+  function commit() {
+    const number =
+      draft.trim() === ""
+        ? ""
+        : String(Math.max(0, Math.min(catalogPriceLimit, Number(draft) || 0)));
+    onCommit(number);
+  }
+  return (
+    <input
+      type="number"
+      aria-label={label}
+      min={0}
+      max={catalogPriceLimit}
+      value={draft}
+      placeholder={placeholder}
+      onChange={(event) => setDraft(event.target.value)}
+      onBlur={commit}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          event.currentTarget.blur();
+        }
+      }}
+    />
+  );
+}
 export function CatalogFilters({
   source,
   scope,
@@ -124,25 +163,22 @@ export function CatalogFilters({
         <div className="price-inputs">
           <label>
             <span className="sr-only">Prezzo minimo</span>
-            <input
-              type="number"
-              aria-label="Prezzo minimo"
-              min={0}
-              max={2000}
-              value={min || ""}
+            <PriceInput
+              key={min}
+              value={min}
+              label="Prezzo minimo"
               placeholder="Da €"
-              onChange={(e) => change("min", e.target.value)}
+              onCommit={(value) => change("min", value)}
             />
           </label>
           <label>
             <span className="sr-only">Prezzo massimo</span>
-            <input
-              type="number"
-              aria-label="Prezzo massimo"
-              min={0}
-              max={2000}
+            <PriceInput
+              key={max}
               value={max}
-              onChange={(e) => change("max", e.target.value)}
+              label="Prezzo massimo"
+              placeholder="A €"
+              onCommit={(value) => change("max", value)}
             />
           </label>
         </div>
@@ -151,7 +187,7 @@ export function CatalogFilters({
           aria-label="Limite prezzo massimo"
           type="range"
           min={0}
-          max={2000}
+          max={catalogPriceLimit}
           step={1}
           value={sliderMax}
           onChange={(e) => onPriceDraft(Number(e.target.value))}

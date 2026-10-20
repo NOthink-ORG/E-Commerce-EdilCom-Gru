@@ -1,0 +1,125 @@
+/* The gallery and assistance reuse existing panels, fields, buttons and tokens. */
+.stock.out {
+  color: #9a3030;
+  background: #fff3f3;
+  border-color: #eab8b8;
+}
+.stock.out > span {
+  background: #b74141;
+}
+.gallery-stage {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+.gallery-controls > span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.gallery-caption {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+.gallery-caption a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.missing-photo {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  color: var(--muted);
+}
+.thumbnails {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.thumbnails button {
+  flex-shrink: 0;
+}
+.assistance-page {
+  padding-bottom: 36px;
+}
+.assistance-page .page-heading {
+  margin-bottom: 28px;
+  max-width: 850px;
+}
+.assistance-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(260px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.support-form > p {
+  margin-block: 12px 22px;
+}
+.support-form .field textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  resize: vertical;
+}
+.support-form > .button {
+  margin-top: 24px;
+}
+.support-form .support-disclaimer {
+  font-size: 13px;
+  margin-block: 12px 0;
+}
+.support-faq > p,
+.support-review > p {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.support-faq details {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 18px;
+}
+.support-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.support-faq details p {
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+.support-review {
+  margin-top: 24px;
+}
+.support-review pre {
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--soft);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.support-review:focus-visible {
+  outline: 2px solid var(--card-hover-border);
+  outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .assistance-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 540px) {
+  .gallery-stage {
+    width: 100%;
+  }
+  .thumbnails {
+    max-height: none;
+  }
+}

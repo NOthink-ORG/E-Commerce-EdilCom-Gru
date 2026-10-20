@@ -1,19 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
-import {
-  Maximize2,
-  X,
-  ShieldCheck,
-} from "lucide-react";
+import { ShieldCheck } from "lucide-react";
+import { ProductGallery } from "./product-gallery";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
 import { StockBadge, AddToCart } from "./ui";
 import { SupportButton } from "./support-button";
 import { Benefits } from "./shell";
 export function ProductDetail({ product }: { product: Product }) {
-  const gallery = [product.image];
-  const [selected, setSelected] = useState(0);
-  const dialog = useRef<HTMLDialogElement>(null);
   const technical = [
     ["Marca", product.brand],
     ["Codice prodotto", product.code],
@@ -28,35 +21,7 @@ export function ProductDetail({ product }: { product: Product }) {
   return (
     <>
       <div className="product-detail">
-        <div className="gallery">
-          <div className="thumbnails">
-            {gallery.map((src, i) => (
-              <button
-                key={src}
-                className={selected === i ? "active" : ""}
-                onClick={() => setSelected(i)}
-                aria-label={`Foto ${i + 1} di ${product.name}`}
-              >
-                <img src={src} width={70} height={70} alt="" />
-              </button>
-            ))}
-          </div>
-          <div className="main-product-image">
-            <img
-              src={gallery[selected]}
-              alt={`${product.name} — vista ${selected + 1}`}
-              width={600}
-              height={500}
-            />
-            <button
-              className="icon-button zoom-button"
-              aria-label="Ingrandisci foto prodotto"
-              onClick={() => dialog.current?.showModal()}
-            >
-              <Maximize2 size={18} />
-            </button>
-          </div>
-        </div>
+        <ProductGallery key={product.id} product={product} />
         <section className="product-intro">
           <span className="category-tag">{product.category}</span>
           <h1>{product.name}</h1>
@@ -81,7 +46,7 @@ export function ProductDetail({ product }: { product: Product }) {
           </p>
           <div className="detail-purchase">
             <AddToCart product={product} />
-            <SupportButton subject={product.name} />
+            <SupportButton productSlug={product.slug} />
           </div>
           <p className="demo-note">
             <ShieldCheck size={15} /> Prezzo e disponibilità dimostrativi ·
@@ -90,11 +55,17 @@ export function ProductDetail({ product }: { product: Product }) {
           <Benefits small />
         </section>
       </div>
-      <section className="product-description" aria-labelledby="product-description-title">
+      <section
+        className="product-description"
+        aria-labelledby="product-description-title"
+      >
         <h2 id="product-description-title">Descrizione del prodotto</h2>
         <p>{product.description}</p>
       </section>
-      <section className="panel technical product-technical" aria-labelledby="product-technical-title">
+      <section
+        className="panel technical product-technical"
+        aria-labelledby="product-technical-title"
+      >
         <h2 id="product-technical-title">Dati tecnici principali</h2>
         <dl>
           {technical.map(([key, value]) => (
@@ -105,31 +76,10 @@ export function ProductDetail({ product }: { product: Product }) {
           ))}
         </dl>
         <p className="muted small-copy">
-          I dati di questo esempio non sostituiscono una scheda tecnica ufficiale.
+          I dati di questo esempio non sostituiscono una scheda tecnica
+          ufficiale.
         </p>
       </section>
-      <dialog
-        ref={dialog}
-        className="image-modal"
-        aria-label={`Immagine ingrandita: ${product.name}`}
-        onClick={(e) => {
-          if (e.target === dialog.current) dialog.current?.close();
-        }}
-      >
-        <button
-          className="icon-button modal-close"
-          aria-label="Chiudi immagine"
-          onClick={() => dialog.current?.close()}
-        >
-          <X />
-        </button>
-        <img
-          src={gallery[selected]}
-          alt={product.name}
-          width={900}
-          height={700}
-        />
-      </dialog>
     </>
   );
 }

@@ -201,21 +201,8 @@
 .subcategories > a:hover {
   border-color: var(--accent);
 }
-.catalog-results .product-card {
-  padding: 12px;
-}
-.catalog-results .product-image {
-  height: 132px;
-}
-.catalog-results .product-name {
-  font-size: 14px;
-}
 .catalog-results .product-meta {
-  font-size: 11px;
   margin-bottom: 8px;
-}
-.catalog-results .brand-tag {
-  font-size: 11px;
 }
 .catalog-results .price {
   font-size: 15px;

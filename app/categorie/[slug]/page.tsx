@@ -4,21 +4,28 @@ import { categoryDirectory } from "@/lib/catalog-navigation";
 import { CollectionHero } from "@/components/collection-sections";
 import { CatalogView } from "@/components/catalog-view";
 import { SupportBanner } from "@/components/shell";
-import { pageMetadata } from "@/lib/seo";
-type Props = { params: Promise<{ slug: string }> };
+import {
+  collectionCanonical,
+  type SearchParams,
+  pageMetadata,
+} from "@/lib/seo";
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<SearchParams>;
+};
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return categoryDirectory.map(({ slug }) => ({ slug }));
 }
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const category = categoryDirectory.find((item) => item.slug === slug);
   if (!category) notFound();
   return pageMetadata(
     `${category.name} per gru`,
     `${category.description}. Esplora i prodotti demo, filtra per marca e confronta i ricambi.`,
-    `/categorie/${category.slug}`,
+    collectionCanonical(`/categorie/${category.slug}`, await searchParams),
   );
 }
 export default async function CategoryPage({ params }: Props) {

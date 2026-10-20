@@ -20,14 +20,8 @@
     width: 155px;
     height: auto;
   }
-  .product-card {
-    padding: 12px;
-  }
   .buy-row.compact .button {
     font-size: 11px;
-  }
-  .product-image {
-    height: 130px;
   }
   .benefits > div {
     padding-inline: 10px;
@@ -37,12 +31,6 @@
     grid-template-columns: 210px 1fr;
     gap: 17px;
   }
-  .catalog-results .product-card {
-    padding: 10px;
-  }
-  .catalog-results .product-image {
-    height: 110px;
-  }
   .catalog-results .compact .button {
     font-size: 11px;
     gap: 3px;
@@ -51,13 +39,6 @@
   .catalog-results .product-meta {
     flex-wrap: wrap;
     gap: 4px;
-  }
-  .catalog-results .product-name {
-    font-size: 13px;
-    min-height: 33px;
-  }
-  .catalog-results .brand-tag {
-    font-size: 11px;
   }
   .subcategories > a {
     padding: 7px;
@@ -214,9 +195,6 @@
   }
   .product-card .product-name {
     font-size: 14px;
-  }
-  .product-image {
-    height: 115px;
   }
   .product-meta {
     font-size: 11px;
@@ -406,12 +384,6 @@
   .catalog-results .product-grid.columns-4 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .catalog-results .product-image {
-    height: 125px;
-  }
-  .catalog-results .product-name {
-    font-size: 14px;
-  }
   .catalog-results .compact .button {
     font-size: 11px;
   }
@@ -530,9 +502,6 @@
   .featured .product-card:nth-child(n + 4) {
     display: none;
   }
-  .product-image {
-    height: 145px;
-  }
   .product-card .product-name {
     font-size: 14px;
   }
@@ -623,12 +592,6 @@
   }
   .catalog-results .product-grid.columns-4 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .catalog-results .product-card {
-    padding: 13px;
-  }
-  .catalog-results .product-image {
-    height: 145px;
   }
   .catalog-results .compact .button {
     font-size: 11px;
@@ -1111,9 +1074,6 @@
   .featured .product-card:last-child {
     display: none;
   }
-  .product-card {
-    padding: 11px;
-  }
   .stock {
     font-size: 11px;
     padding: 2px 5px;
@@ -1121,10 +1081,6 @@
   .stock > span {
     width: 5px;
     height: 5px;
-  }
-  .product-image {
-    height: 117px;
-    margin: 7px 0 9px;
   }
   .product-card .product-name {
     font-size: 14px;
@@ -1372,22 +1328,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
-  .catalog-results .product-card {
-    padding: 10px;
-  }
-  .catalog-results .product-image {
-    height: 115px;
-  }
-  .catalog-results .product-name {
-    font-size: 13px;
-    min-height: 33px;
-  }
   .catalog-results .product-meta {
-    font-size: 11px;
     min-height: 29px;
-  }
-  .catalog-results .brand-tag {
-    font-size: 11px;
   }
   .catalog-results .compact .button {
     font-size: 11px;
@@ -1547,9 +1489,6 @@
   }
   .technical .small-copy {
     font-size: 11px;
-  }
-  .related .product-image {
-    height: 120px;
   }
   .related .section-heading {
     align-items: center;

@@ -7,3 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Regole del progetto
+
+Prima di ogni modifica leggere obbligatoriamente `docs/DEVELOPMENT_STANDARDS.md` e rispettarne le indicazioni. Consultare inoltre la documentazione Next.js locale pertinente, come richiesto dal blocco generato sopra. Preservare il design esistente e il carattere esclusivamente dimostrativo del frontend.

@@ -4,13 +4,16 @@ import { Minus, Plus, ShoppingCart, Search, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/catalog";
+import { isPurchasable, stockLabels } from "@/lib/catalog-logic";
 import { brandHref } from "@/lib/catalog-navigation";
 import { useStore } from "./store-provider";
 export function StockBadge({ stock }: { stock: Product["stock"] }) {
   return (
-    <span className={`stock ${stock === "low" ? "low" : ""}`}>
+    <span
+      className={`stock ${stock === "low" ? "low" : stock === "out_of_stock" ? "out" : ""}`}
+    >
       <span />
-      {stock === "low" ? "Pochi pezzi" : "Disponibile"}
+      {stockLabels[stock]}
     </span>
   );
 }
@@ -70,7 +73,7 @@ export function AddToCart({
   compact?: boolean;
 }) {
   const [qty, setQty] = useState(1);
-  const { add, ready } = useStore();
+  const { add } = useStore();
   return (
     <div className={`buy-row ${compact ? "compact" : ""}`}>
       <QuantitySelector
@@ -80,11 +83,13 @@ export function AddToCart({
       />
       <button
         className="button primary"
-        disabled={!ready}
+        disabled={!isPurchasable(product.stock)}
         onClick={() => add(product.id, qty)}
       >
         <ShoppingCart size={17} />
-        <span>Aggiungi al carrello</span>
+        <span>
+          {isPurchasable(product.stock) ? "Aggiungi al carrello" : "Esaurito"}
+        </span>
       </button>
     </div>
   );

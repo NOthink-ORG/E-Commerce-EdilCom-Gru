@@ -184,7 +184,7 @@
 }
 .product-grid .product-image img {
   padding: 0;
-  object-fit: cover;
+  object-fit: contain;
 }
 .product-grid .product-name {
   font-size: 15px;

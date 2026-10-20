@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import {
   SlidersHorizontal,
   X,
@@ -10,40 +10,62 @@ import {
   ChevronLeft,
   RotateCcw,
 } from "lucide-react";
-import { products } from "@/lib/catalog";
+import { products, catalogPriceLimit } from "@/lib/catalog";
 import { ProductGrid, SearchBar } from "./ui";
 import { CatalogFilters } from "./catalog-filters";
 import { FilterDrawer } from "./filter-drawer";
-import { normalizeSearch, type CatalogScope } from "@/lib/catalog-navigation";
+import {
+  parseCatalogState,
+  scopedProducts,
+  filterProducts,
+  paginateProducts,
+  type CatalogScope,
+} from "@/lib/catalog-logic";
 import { CollectionLinks } from "./collection-sections";
-const pageSize = 12;
 export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
   const params = useSearchParams(),
     router = useRouter(),
     pathname = usePathname();
-  const source = products.filter(
-    (product) =>
-      (!scope.category || product.category === scope.category) &&
-      (!scope.brand || product.brand === scope.brand),
-  );
+  const [filterQuery, setFilterQuery] = useOptimistic(params.toString());
+  const [pending, startTransition] = useTransition();
+  const current = new URLSearchParams(filterQuery);
+  const [resetRevision, setResetRevision] = useState(0);
+  const source = scopedProducts(products, scope);
   const [drawer, setDrawer] = useState(false);
   const [layout, setLayout] = useState("grid");
-  const query = params.get("q") || "",
-    selectedCategories = params.getAll("categoria"),
-    brands = params.getAll("brand"),
-    compatible = params.getAll("compatibilita"),
-    available = params.get("disponibile") === "1",
-    max = Number(params.get("max") || 2000),
-    min = Number(params.get("min") || 0),
-    sort = params.get("ordine") || "relevance",
-    voltage = params.getAll("tensione");
-  const [priceDraft, setPriceDraft] = useState({ source: max, value: max });
-  const sliderMax = priceDraft.source === max ? priceDraft.value : max;
+  const state = parseCatalogState(current, catalogPriceLimit);
+  const {
+    query,
+    selectedCategories,
+    brands,
+    compatible,
+    available,
+    max,
+    min,
+    sort,
+    voltage,
+  } = state;
+  const [priceDraft, setPriceDraft] = useState<number | null>(null);
+  const sliderMax = priceDraft ?? max;
+  function navigate(next: URLSearchParams) {
+    startTransition(() => {
+      setFilterQuery(next.toString());
+      router.replace(`${pathname}${next.size ? `?${next.toString()}` : ""}`, {
+        scroll: false,
+      });
+    });
+  }
+  function reset() {
+    setPriceDraft(null);
+    setResetRevision((revision) => revision + 1);
+    navigate(new URLSearchParams());
+  }
   function commitPrice(value: string) {
+    setPriceDraft(null);
     if (Number(value) !== max) change("max", value);
   }
   function change(key: string, value: string, multi = false) {
-    const next = new URLSearchParams(params.toString());
+    const next = new URLSearchParams(filterQuery);
     next.delete("pagina");
     if (multi) {
       const old = next.getAll(key);
@@ -54,42 +76,13 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
       ).forEach((v) => next.append(key, v));
     } else if (value) next.set(key, value);
     else next.delete(key);
-    router.replace(`${pathname}${next.size ? `?${next.toString()}` : ""}`, {
-      scroll: false,
-    });
+    navigate(next);
   }
-  let filtered = source.filter((p) => {
-    const searchable = normalizeSearch(
-      `${p.name} ${p.code} ${p.brand} ${p.category}`,
-    );
-    return (
-      normalizeSearch(query)
-        .split(/\s+/)
-        .every((q) => searchable.includes(q)) &&
-      (!selectedCategories.length || selectedCategories.includes(p.category)) &&
-      (!brands.length || brands.includes(p.brand)) &&
-      (!compatible.length ||
-        compatible.some((c) => p.compatibility.includes(c))) &&
-      (!available || p.stock === "available") &&
-      p.price >= min &&
-      p.price <= max &&
-      (!voltage.length || voltage.includes(p.voltage || ""))
-    );
-  });
-  filtered = [...filtered].sort((a, b) =>
-    sort === "price-asc"
-      ? a.price - b.price
-      : sort === "price-desc"
-        ? b.price - a.price
-        : sort === "name"
-          ? a.name.localeCompare(b.name)
-          : 0,
-  );
-  const pages = Math.max(1, Math.ceil(filtered.length / pageSize)),
-    page = Math.max(1, Math.min(pages, Number(params.get("pagina")) || 1)),
-    visible = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const filtered = filterProducts(source, state);
+  const { pages, page, visible } = paginateProducts(filtered, state.page);
   const filters = (
     <CatalogFilters
+      key={resetRevision}
       source={source}
       scope={scope}
       values={{
@@ -104,9 +97,9 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
       }}
       filteredCount={filtered.length}
       change={change}
-      onReset={() => router.replace(pathname, { scroll: false })}
+      onReset={reset}
       onClose={() => setDrawer(false)}
-      onPriceDraft={(value) => setPriceDraft({ source: max, value })}
+      onPriceDraft={setPriceDraft}
       onPriceCommit={commitPrice}
     />
   );
@@ -114,11 +107,11 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
     <>
       <div className="container catalog-search">
         <SearchBar
-          key={query}
+          key={`${query}-${resetRevision}`}
           initial={query}
           category
           action={pathname}
-          fields={[...params.entries()].filter(
+          fields={[...current.entries()].filter(
             ([key]) => key !== "q" && key !== "pagina",
           )}
           placeholder={
@@ -140,9 +133,12 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
             {filters}
           </FilterDrawer>
         )}
-        <div className="catalog-results">
+        <div className="catalog-results" aria-busy={pending}>
           <div className="catalog-toolbar">
-            <strong>{filtered.length} prodotti trovati</strong>
+            <strong>
+              {filtered.length}{" "}
+              {filtered.length === 1 ? "prodotto trovato" : "prodotti trovati"}
+            </strong>
             <button
               className="button outline filter-toggle"
               onClick={() => setDrawer(true)}
@@ -188,17 +184,14 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
             compatible.length > 0 ||
             available ||
             min > 0 ||
-            max < 2000 ||
+            max < catalogPriceLimit ||
             voltage.length > 0) && (
             <div className="active-filters">
               <span>
                 {query ? `Ricerca: “${query}”` : "Filtri attivi"}{" "}
                 {selectedCategories.join(", ")} {brands.join(", ")}
               </span>
-              <button
-                className="text-button"
-                onClick={() => router.replace(pathname, { scroll: false })}
-              >
+              <button className="text-button" onClick={reset}>
                 <X size={14} /> Rimuovi tutti
               </button>
             </div>
@@ -212,10 +205,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
               <Search size={42} />
               <h2>Nessun ricambio trovato</h2>
               <p>Prova un altro codice o rimuovi alcuni filtri.</p>
-              <button
-                className="button primary"
-                onClick={() => router.replace(pathname, { scroll: false })}
-              >
+              <button className="button primary" onClick={reset}>
                 <RotateCcw size={17} />
                 Azzera la ricerca
               </button>

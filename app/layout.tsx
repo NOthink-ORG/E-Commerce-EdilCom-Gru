@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it">
+    <html lang="it" data-scroll-behavior="smooth">
       <body>
         <StoreProvider>
           <a className="skip-link" href="#contenuto">

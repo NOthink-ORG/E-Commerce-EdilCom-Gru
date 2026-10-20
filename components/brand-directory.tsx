@@ -31,7 +31,8 @@ export function BrandDirectory() {
             <h2>Tutti i marchi di ricambi per gru</h2>
           </div>
           <p className="muted" role="status">
-            {matches.length} brand trovati
+            {matches.length}{" "}
+            {matches.length === 1 ? "brand trovato" : "brand trovati"}
           </p>
         </div>
         <div className="directory-grid">

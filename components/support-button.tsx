@@ -1,21 +1,25 @@
-"use client";
+import Link from "next/link";
 import { Headphones } from "lucide-react";
-import { useStore } from "./store-provider";
 export function SupportButton({
-  subject = "",
+  productSlug,
   className = "button outline",
   label = "Richiedi assistenza",
 }: {
-  subject?: string;
+  productSlug?: string;
   className?: string;
   label?: string;
 }) {
-  const { support } = useStore();
   return (
-    <button className={className} onClick={() => support(subject)}>
+    <Link
+      className={className}
+      href={
+        productSlug
+          ? `/assistenza?prodotto=${encodeURIComponent(productSlug)}`
+          : "/assistenza"
+      }
+    >
       <Headphones size={18} />
       {label}
-
-    </button>
+    </Link>
   );
 }

@@ -98,7 +98,7 @@ function CollectionMenu({
   );
 }
 export function Header() {
-  const { cart, support, info } = useStore();
+  const { cart, info } = useStore();
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
   return (
@@ -113,7 +113,7 @@ export function Header() {
           </span>
           <div>
             <button onClick={() => info("Azienda")}>Azienda</button>
-            <button onClick={() => support()}>Assistenza</button>
+            <Link href="/assistenza">Assistenza</Link>
             <button
               aria-label="Area riservata"
               onClick={() => info("Area riservata")}
@@ -143,7 +143,7 @@ export function Header() {
             className={menu ? "main-nav open" : "main-nav"}
           >
             <Link onClick={() => setMenu(false)} href="/catalogo">
-              Ricambi <ChevronDown size={13} />
+              Ricambi
             </Link>
             <CollectionMenu
               label="Categorie"
@@ -163,22 +163,9 @@ export function Header() {
                 href: brandHref(item.name),
               }))}
             />
-            <button
-              onClick={() => {
-                support();
-                setMenu(false);
-              }}
-            >
-              Assistenza <ChevronDown size={13} />
-            </button>
-            <button
-              onClick={() => {
-                info("Contatti");
-                setMenu(false);
-              }}
-            >
-              Contatti
-            </button>
+            <Link href="/assistenza" onClick={() => setMenu(false)}>
+              Assistenza
+            </Link>
           </nav>
           <div className="header-actions">
             <button
@@ -263,7 +250,6 @@ export function Benefits({ small = false }: { small?: boolean }) {
   );
 }
 export function SupportBanner() {
-  const { support } = useStore();
   return (
     <section className="support-banner">
       <div className="container">
@@ -276,16 +262,16 @@ export function SupportBanner() {
           <br className="desktop-break" /> corretto e a verificarne la
           compatibilità con la tua gru.
         </p>
-        <button className="button primary" onClick={() => support()}>
+        <Link className="button primary" href="/assistenza">
           <Headphones size={18} />
           Richiedi assistenza tecnica
-        </button>
+        </Link>
       </div>
     </section>
   );
 }
 export function Footer() {
-  const { info, support } = useStore();
+  const { info } = useStore();
   return (
     <>
       <section className="container trust-section">
@@ -328,8 +314,8 @@ export function Footer() {
           </div>
           <div>
             <h3>Assistenza</h3>
-            <button onClick={() => support()}>Supporto tecnico</button>
-            <button onClick={() => support()}>Richiesta ricambi</button>
+            <Link href="/assistenza">Supporto tecnico</Link>
+            <Link href="/assistenza">Richiesta ricambi</Link>
             <button onClick={() => info("Manuali e documentazione")}>
               Manuali e documentazione
             </button>
@@ -339,12 +325,7 @@ export function Footer() {
           </div>
           <div>
             <h3>Azienda</h3>
-            {[
-              "Chi siamo",
-              "Certificazioni",
-              "Contatti",
-              "Privacy e cookie",
-            ].map((t) => (
+            {["Chi siamo", "Certificazioni", "Privacy e cookie"].map((t) => (
               <button key={t} onClick={() => info(t)}>
                 {t}
               </button>
@@ -355,12 +336,14 @@ export function Footer() {
             <p>
               <MapPin size={17} /> Sede e recapiti da confermare
             </p>
-            <button onClick={() => support()}>
-              <Headphones size={17} /> Richiedi assistenza
-            </button>
-            <button onClick={() => info("Contatti")}>
-              <Mail size={17} /> Contatti aziendali
-            </button>
+            <Link href="/assistenza">
+              <Headphones size={17} />
+              Richiedi assistenza
+            </Link>
+            <Link href="/assistenza">
+              <Mail size={17} />
+              Richieste e informazioni
+            </Link>
           </div>
         </div>
         <div className="footer-bottom">

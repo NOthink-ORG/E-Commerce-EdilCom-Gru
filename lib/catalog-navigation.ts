@@ -1,4 +1,4 @@
-import { categories, products } from "./catalog";
+import { categories, products } from "./catalog.ts";
 
 // These slugs are part of the public URLs; keep them stable when editing labels.
 const categorySlugs: Record<string, string> = {
@@ -44,9 +44,5 @@ export const categoryHref = (name: string) =>
   `/categorie/${categoryDirectory.find((item) => item.name === name)!.slug}`;
 export const brandHref = (name: string) =>
   `/brand/${brandDirectory.find((item) => item.name === name)!.slug}`;
-export type CatalogScope = { category?: string; brand?: string };
-export const normalizeSearch = (value: string) =>
-  value
-    .toLocaleLowerCase("it")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+export { normalizeSearch } from "./catalog-logic.ts";
+export type { CatalogScope } from "./catalog-logic.ts";

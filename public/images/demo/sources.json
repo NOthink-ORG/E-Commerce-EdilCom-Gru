@@ -138,5 +138,116 @@
     "image": "https://cdn.shopify.com/s/files/1/0662/3268/0683/files/51Trss_HMgL_5c88606f-b153-4fea-9f2f-f6567058544f.jpg?v=1792155487",
     "width": 1000,
     "height": 1000
+  },
+  {
+    "asset": "demo-radio-orange.jpg",
+    "image": "https://image.made-in-china.com/2f0j00ICcqBnHtfZkP/Akerstroms-Overhead-Crane-Industrial-Radio-Remote-Control-for-Tower-Crane-with-CE-Certificate.jpg",
+    "width": 1441,
+    "height": 2217,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-radio-dual.png",
+    "image": "https://www.hbc.sk/wh/960-720/img/catalog/gallery/150-technosB/5-cover-header-01-technos-B-KMS-pers.png",
+    "width": 900,
+    "height": 600,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-radio-red.jpg",
+    "image": "https://image.made-in-china.com/2f0j00kzEboTRKvvpP/Ohm-A12-Industrial-Radio-Remote-Control-Transmitter-for-Crane-and-Construction-Equipment.jpg",
+    "width": 2006,
+    "height": 2006,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-motor-blue.jpg",
+    "image": "https://hvhindustrial.com/images/frontend_images/blogs/1586962774Elektrim-Electric-Motor-20MFM_600px_wbgrd.jpg",
+    "width": 1102,
+    "height": 579,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-motor-cast.png",
+    "image": "https://industrialmotorwarehouse.com/cdn/shop/files/B3_Cast_Iron.png?v=1722597979&width=1920",
+    "width": 1920,
+    "height": 1280,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-limit-lever.jpg",
+    "image": "https://telemecaniquesensors.dam-broadcast.com/medias/domain13481/media100685/205750-5hlne9esn7-whr.jpg",
+    "width": 1200,
+    "height": 1200,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-limit-roller.jpg",
+    "image": "https://www.rockwellautomation.com/resources/images/productinfo/IDW_1000x1000/440P/440P-CALS11D4_1000x1000.jpg",
+    "width": 1000,
+    "height": 1000,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-pulley-yellow.jpg",
+    "image": "https://www.yfm-crane.com/uploads/42618/crane-sheave927ff.jpg",
+    "width": 960,
+    "height": 960,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-pulley-steel.png",
+    "image": "https://www.certex.se/pim/assortment/Wire%20rope%20fittings%20and%20accessories/Sheaves%20and%20blocks/2409/image-thumb__2409__product-large/linskiva_fz.dbefee9d.png",
+    "width": 1000,
+    "height": 1000,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-rope-coil.jpg",
+    "image": "https://5.allegroimg.com/original/03db43/9ac6dbe8433bb26054d11199e6f5/HORGANYZOTT-acel-zsinorkoetel-6x19-4mm-20m",
+    "width": 1600,
+    "height": 1600,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-charger-yellow.png",
+    "image": "https://www.onehydraulics.com/cdn/shop/files/68108670.A-1.png?v=1686338117",
+    "width": 992,
+    "height": 992,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-charger-black.jpg",
+    "image": "https://www.recambiosparagruas.com/1167-large_default/akerstroms-original-charger-dc-8b-10b-12b-era.jpg",
+    "width": 800,
+    "height": 800,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "demo-panel.jpg",
+    "image": "https://tiimg.tistatic.com/fp/1/007/974/wall-mounted-easy-installation-electrical-control-panel-board-869.jpg",
+    "width": 500,
+    "height": 500,
+    "usage": "Demo illustration; not a product specification"
+  },
+  {
+    "asset": "gallery-rope-detail.webp",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Rhll_wire_rope.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Rhll_wire_rope.jpg",
+    "author": "Bernard S. Jansen",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "changes": "Resized to max 1200px wide and encoded WebP; no content changes",
+    "usage": "Illustrative rope photograph; not the actual demo product"
+  },
+  {
+    "asset": "gallery-rope-terminal.webp",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/95/Wire_rope_with_thimble_and_ferrule.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Wire_rope_with_thimble_and_ferrule.jpg",
+    "author": "Bernard S. Jansen",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "changes": "Resized to max 1200px wide and encoded WebP; no content changes",
+    "usage": "Illustrative rope photograph; not the actual demo product"
   }
 ]

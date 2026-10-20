@@ -1,45 +1,6 @@
-export type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  code: string;
-  brand: string;
-  category: string;
-  price: number;
-  image: string;
-  stock: "available" | "low";
-  unit: "pezzo" | "metro";
-  compatibility: string[];
-  voltage?: string;
-  description: string;
-};
-const product = (
-  id: string,
-  name: string,
-  code: string,
-  brand: string,
-  category: string,
-  price: number,
-  image: string,
-  stock: Product["stock"] = "available",
-  unit: Product["unit"] = "pezzo",
-  voltage?: string,
-): Product => ({
-  id,
-  slug: id,
-  name,
-  code,
-  brand,
-  category,
-  price,
-  image: `/images/demo/${image}.jpg`,
-  stock,
-  unit,
-  compatibility:
-    category === "Radiocomandi" ? ["Potain", "Terex"] : ["Potain", "Liebherr"],
-  voltage,
-  description: `${name}: un esempio di ricambio per il settore del sollevamento. La selezione del componente richiede la verifica di modello, matricola e documentazione della gru. Fotografie, prezzo e disponibilità sono dimostrativi; le caratteristiche tecniche devono essere confermate prima di un acquisto reale.`,
-});
+import { createDemoProduct as product, type Product } from "./product.ts";
+import { additionalProducts } from "./demo-products.ts";
+export type { Product } from "./product.ts";
 export const products: Product[] = [
   product(
     "fune-acciaio-10mm",
@@ -242,7 +203,10 @@ export const products: Product[] = [
     780,
     "gearbox",
   ),
+  ...additionalProducts,
 ];
+export const catalogPriceLimit =
+  Math.ceil(Math.max(...products.map((product) => product.price)) / 500) * 500;
 export const categories = [
   { name: "Funi", image: "rope", description: "Funi in acciaio e accessori" },
   {
@@ -270,10 +234,26 @@ export const categories = [
     image: "motor",
     description: "Motori elettrici, riduttori e freni",
   },
-  { name: "Batterie", image: "battery", description: "Batterie per radiocomandi e sistemi di comando" },
-  { name: "Ricevitori", image: "receiver", description: "Unità di ricezione e controllo per radiocomandi" },
-  { name: "Accessori", image: "belt", description: "Cinghie, antenne e accessori per gru" },
-  { name: "Caricabatterie", image: "charger", description: "Caricabatterie e alimentatori per radiocomandi" },
+  {
+    name: "Batterie",
+    image: "battery",
+    description: "Batterie per radiocomandi e sistemi di comando",
+  },
+  {
+    name: "Ricevitori",
+    image: "receiver",
+    description: "Unità di ricezione e controllo per radiocomandi",
+  },
+  {
+    name: "Accessori",
+    image: "belt",
+    description: "Cinghie, antenne e accessori per gru",
+  },
+  {
+    name: "Caricabatterie",
+    image: "charger",
+    description: "Caricabatterie e alimentatori per radiocomandi",
+  },
 ];
 export const catalogProvider = {
   list: () => products,
@@ -290,30 +270,4 @@ export const brand = {
   description: "Ricambi per gru, edilizia e sollevamento",
   demo: true,
 };
-export const taxRate = 0.22;
-export function calculateOrder(
-  items: { product: Product; quantity: number }[],
-  shippingMode = "courier",
-  discount = false,
-) {
-  const subtotal =
-    items.reduce(
-      (sum, item) => sum + Math.round(item.product.price * 100) * item.quantity,
-      0,
-    ) / 100;
-  const reduction = discount ? Math.round(subtotal * 0.1 * 100) / 100 : 0;
-  const shipping =
-    !items.length || shippingMode === "pickup" || subtotal - reduction >= 300
-      ? 0
-      : 12;
-  const taxable = Math.round((subtotal - reduction + shipping) * 100) / 100;
-  const vat = Math.round(taxable * taxRate * 100) / 100;
-  return {
-    subtotal,
-    reduction,
-    shipping,
-    taxable,
-    vat,
-    total: Math.round((taxable + vat) * 100) / 100,
-  };
-}
+export { taxRate, calculateOrder } from "./order.ts";

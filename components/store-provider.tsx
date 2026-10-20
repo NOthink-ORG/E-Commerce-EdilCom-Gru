@@ -7,9 +7,10 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { X, CheckCircle2, Headphones, Copy, Info } from "lucide-react";
+import { X, CheckCircle2, Info } from "lucide-react";
 import { products } from "@/lib/catalog";
-type CartRow = { id: string; quantity: number };
+import { addCartItem, sanitizeCart, type CartRow } from "@/lib/cart-logic";
+import { isPurchasable } from "@/lib/catalog-logic";
 type Store = {
   cart: CartRow[];
   ready: boolean;
@@ -19,7 +20,6 @@ type Store = {
   update: (id: string, qty: number) => void;
   remove: (id: string) => void;
   clear: () => void;
-  support: (subject?: string) => void;
   info: (title: string) => void;
   notify: (text: string) => void;
 };
@@ -34,34 +34,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartRow[]>([]),
     [ready, setReady] = useState(false),
     [toast, setToast] = useState(""),
-    [modal, setModal] = useState<{
-      type: "support" | "info";
-      title: string;
-    } | null>(null),
-    [draft, setDraft] = useState(""),
+    [modal, setModal] = useState<string | null>(null),
     [discount, setDiscount] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     try {
       const stored = JSON.parse(localStorage.getItem(KEY) || "[]");
-      if (Array.isArray(stored)) {
-        // Hydrate a validated local cart after the server render.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setCart(
-          stored
-            .filter(
-              (x: CartRow) =>
-                products.some((p) => p.id === x.id) &&
-                Number.isInteger(x.quantity) &&
-                x.quantity > 0 &&
-                x.quantity <= 999,
-            )
-            .filter(
-              (x: CartRow, i: number, a: CartRow[]) =>
-                a.findIndex((y) => y.id === x.id) === i,
-            ),
-        );
-      }
+      // Revalidate fixtures and stock when restoring this browser's demo cart.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCart(sanitizeCart(stored, products));
     } catch {}
     try {
       setDiscount(localStorage.getItem("edilcom-discount-v1") === "DEMO10");
@@ -90,17 +71,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     else dialog.current?.close();
   }, [modal]);
   function add(id: string, qty: number) {
-    if (!products.some((p) => p.id === id) || !Number.isInteger(qty) || qty < 1)
+    const item = products.find((product) => product.id === id);
+    if (!item || !isPurchasable(item.stock)) {
+      setToast("Prodotto esaurito o non disponibile");
       return;
-    setCart((c) =>
-      c.some((x) => x.id === id)
-        ? c.map((x) =>
-            x.id === id
-              ? { ...x, quantity: Math.min(999, x.quantity + qty) }
-              : x,
-          )
-        : [...c, { id, quantity: Math.min(999, qty) }],
-    );
+    }
+    if (!Number.isInteger(qty) || qty < 1) return;
+    setCart((cart) => addCartItem(cart, id, qty, products));
     setToast("Prodotto aggiunto al carrello");
   }
   return (
@@ -127,11 +104,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           setCart([]);
           setDiscount(false);
         },
-        support: (subject = "") => {
-          setDraft("");
-          setModal({ type: "support", title: subject });
-        },
-        info: (title) => setModal({ type: "info", title }),
+        info: setModal,
         notify: setToast,
       }}
     >
@@ -156,79 +129,19 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         >
           <X />
         </button>
-        {modal?.type === "support" ? (
-          <>
-            <Headphones className="accent" size={36} />
-            <h2 id="shared-dialog-title">Troviamo il ricambio giusto.</h2>
-            <p className="muted">
-              Prepara una richiesta per il team tecnico. In questa demo non
-              viene inviata né salvata.
-            </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const data = new FormData(e.currentTarget);
-                setDraft(
-                  `Richiesta assistenza Edilcom Gru\nRicambio / modello: ${data.get("model")}\nDettagli: ${data.get("message")}`,
-                );
-              }}
-            >
-              <label>
-                Ricambio o modello della gru
-                <input
-                  name="model"
-                  required
-                  defaultValue={modal.title}
-                  placeholder="Es. Hetronic Nova L"
-                />
-              </label>
-              <label>
-                Come possiamo aiutarti?
-                <textarea
-                  name="message"
-                  required
-                  rows={4}
-                  placeholder="Indica matricola, modello e il ricambio che cerchi…"
-                />
-              </label>
-              <button className="button primary" type="submit">
-                Prepara richiesta <Headphones size={17} />
-              </button>
-            </form>
-            {draft && (
-              <div className="draft">
-                <pre>{draft}</pre>
-                <button
-                  className="button outline"
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(draft);
-                      setToast("Richiesta copiata");
-                    } catch {
-                      setToast("Seleziona e copia il testo della richiesta");
-                    }
-                  }}
-                >
-                  <Copy size={16} /> Copia richiesta
-                </button>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <Info size={32} className="accent" />
-            <h2 id="shared-dialog-title">{modal?.title}</h2>
-            <p>
-              Questa sezione sarà completata con i contenuti ufficiali
-              dell’azienda.
-            </p>
-            <p className="muted">
-              Il sito è una dimostrazione del catalogo. Contatti, informazioni
-              societarie, condizioni di vendita e documentazione devono essere
-              forniti e approvati prima della pubblicazione.
-            </p>
-          </>
-        )}
+        <>
+          <Info size={32} className="accent" />
+          <h2 id="shared-dialog-title">{modal}</h2>
+          <p>
+            Questa sezione sarà completata con i contenuti ufficiali
+            dell’azienda.
+          </p>
+          <p className="muted">
+            Il sito è una dimostrazione del catalogo. Contatti, informazioni
+            societarie, condizioni di vendita e documentazione devono essere
+            forniti e approvati prima della pubblicazione.
+          </p>
+        </>
       </dialog>
     </StoreContext.Provider>
   );
