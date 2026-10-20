@@ -7,24 +7,12 @@ import {
   normalizeSearch,
 } from "@/lib/catalog-navigation";
 import { SearchBar } from "./ui";
-const initials = [
-  ...new Set(brandDirectory.map((brand) => brand.name[0].toUpperCase())),
-].sort();
 export function BrandDirectory() {
   const params = useSearchParams();
   const query = params.get("q") || "";
-  const initial = params.get("lettera") || "";
-  const matches = brandDirectory.filter(
-    (brand) =>
-      normalizeSearch(brand.name).includes(normalizeSearch(query)) &&
-      (!initial || brand.name[0].toUpperCase() === initial),
+  const matches = brandDirectory.filter((brand) =>
+    normalizeSearch(brand.name).includes(normalizeSearch(query)),
   );
-  function letterHref(letter: string) {
-    const next = new URLSearchParams();
-    if (query) next.set("q", query);
-    if (letter) next.set("lettera", letter);
-    return `/brand${next.size ? `?${next}` : ""}`;
-  }
   return (
     <>
       <div className="container catalog-search">
@@ -34,25 +22,7 @@ export function BrandDirectory() {
           action="/brand"
           placeholder="Cerca un brand (es. Hetronic, HBC, Autec…)"
           popularTerms={[]}
-          fields={initial ? [["lettera", initial]] : []}
-        >
-          <nav
-            className="alphabet-filter"
-            aria-label="Filtra brand per iniziale"
-          >
-            <strong>Tutti i brand:</strong>
-            {["", ...initials].map((letter) => (
-              <Link
-                key={letter}
-                href={letterHref(letter)}
-                className={letter === initial ? "active" : ""}
-                aria-current={letter === initial ? "true" : undefined}
-              >
-                {letter || "Tutti"}
-              </Link>
-            ))}
-          </nav>
-        </SearchBar>
+        />
       </div>
       <section className="container section directory-section">
         <div className="section-heading">
@@ -89,7 +59,7 @@ export function BrandDirectory() {
         {!matches.length && (
           <div className="empty-state">
             <h2>Nessun brand trovato</h2>
-            <p>Prova un altro nome o rimuovi il filtro alfabetico.</p>
+            <p>Prova un altro nome o mostra tutti i brand.</p>
             <Link className="button primary" href="/brand">
               Mostra tutti i brand
             </Link>

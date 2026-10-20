@@ -17,13 +17,7 @@ import { FilterDrawer } from "./filter-drawer";
 import { normalizeSearch, type CatalogScope } from "@/lib/catalog-navigation";
 import { CollectionLinks } from "./collection-sections";
 const pageSize = 12;
-export function CatalogView({
-  scope = {},
-  children,
-}: {
-  scope?: CatalogScope;
-  children?: React.ReactNode;
-}) {
+export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
   const params = useSearchParams(),
     router = useRouter(),
     pathname = usePathname();
@@ -136,7 +130,6 @@ export function CatalogView({
           }
         />
       </div>
-      {children}
       {!scope.brand && <CollectionLinks />}
       <section className="container catalog-layout" id="prodotti">
         <aside className="filters desktop-filters" aria-label="Filtri catalogo">
