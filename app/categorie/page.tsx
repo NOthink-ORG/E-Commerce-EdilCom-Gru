@@ -12,6 +12,7 @@ export default function CategoriesPage() {
   return (
     <main id="contenuto">
       <CollectionHero
+        currentPath="/categorie"
         title="Categorie ricambi"
         description="Esplora tutte le famiglie di ricambi per gru e attrezzature di sollevamento. Trova il componente giusto per le tue esigenze."
         items={[{ label: "Categorie" }]}

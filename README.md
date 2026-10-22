@@ -68,8 +68,14 @@ I filtri sono rappresentati nell’URL e combinati in AND tra gruppi, OR all’i
 - `scripts/prepare-assets.mjs` documenta la provenienza dei ritagli. Per rigenerarli occorrono i file sorgenti nella cartella Downloads indicata nello script; per avviare il progetto bastano gli asset già inclusi.
 - Contatti e dati societari attendono conferma; le voci informative aprono un dialog che indica i contenuti mancanti.
 - Da integrare: catalogo/prezzi/stock reali, regole fiscali e spedizioni ufficiali, checkout, ordini, assistenza, documenti legali e autenticazione.
-- Il sito demo è configurato `noindex, nofollow`. L’indicizzazione va abilitata solo con contenuti e dati ufficiali.
+- Il sito demo è protetto da meta robots e header HTTP `noindex, nofollow`; le variabili di pubblicazione non rimuovono il blocco demo nel codice. L’indicizzazione va abilitata solo con contenuti e dati ufficiali.
 
 ## Riferimento visivo
 
 Sono mantenuti bianco/grigio/antracite e giallo, header condiviso, hero industriale, ricerca sovrapposta, card con immagine/codice/marca/prezzo, banner tecnico, vantaggi e footer. Le variazioni intenzionali riguardano i contenuti non verificati, l’hero illustrativo, il catalogo iniziale completo, l’adattamento mobile e il checkout esplicitamente non operativo.
+
+## Verifiche SEO di produzione
+
+Le liste vengono selezionate sul server e la paginazione usa link HTML; le URL di pagina non valide restituiscono 404 prima dello streaming. Le interazioni dei filtri restano ottimistiche nel client. Con `npm start -- --port 3100` attivo, eseguire `SEO_TEST_BASE=http://localhost:3100 npm test` per verificare HTML e route senza JavaScript. La CI esegue anche questi controlli dopo la build.
+
+Per origine, sottopercorso e operazioni ancora necessarie al lancio vedere [la checklist SEO](docs/SEO_LAUNCH_CHECKLIST.md). Nessuna origine pubblica viene scelta automaticamente. Senza origine configurata, una build di produzione omette canonical assolute e BreadcrumbList; non dichiara localhost. Nessun dato strutturato commerciale viene generato dalle fixture.

@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@/components/ui";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SupportForm } from "@/components/support-form";
 import { products } from "@/lib/catalog";
 import { pageMetadata, type SearchParams } from "@/lib/seo";
@@ -6,6 +6,7 @@ export const metadata = pageMetadata(
   "Assistenza tecnica",
   "Prepara una richiesta dimostrativa per identificare un ricambio o raccogliere informazioni tecniche.",
   "/assistenza",
+  "private",
 );
 export default async function AssistancePage({
   searchParams,
@@ -19,7 +20,10 @@ export default async function AssistancePage({
   );
   return (
     <main id="contenuto" className="container assistance-page">
-      <Breadcrumbs items={[{ label: "Assistenza" }]} />
+      <Breadcrumbs
+        currentPath="/assistenza"
+        items={[{ label: "Assistenza" }]}
+      />
       <div className="page-heading">
         <h1>Assistenza tecnica</h1>
         <p>

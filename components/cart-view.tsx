@@ -1,4 +1,5 @@
 "use client";
+import { assetPath } from "@/lib/site-path";
 import Link from "next/link";
 import { ShoppingCart, ArrowLeft, Trash2 } from "lucide-react";
 import { useStore } from "./store-provider";
@@ -46,7 +47,7 @@ export function CartView() {
             return (
               <article key={p.id} className="cart-row">
                 <Link className="cart-product" href={`/prodotti/${p.slug}`}>
-                  <img src={p.image} width={98} height={98} alt={p.name} />
+                  <img src={assetPath(p.image)} width={98} height={98} alt={p.name} />
                   <div>
                     <h2>{p.name}</h2>
                     <small>Cod. {p.code}</small>

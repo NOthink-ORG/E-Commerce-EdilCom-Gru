@@ -1,10 +1,13 @@
 "use client";
+import Image from "next/image";
+import { assetPath } from "@/lib/site-path";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { productImages, type Product } from "@/lib/product";
 export function ProductGallery({ product }: { product: Product }) {
   const images = productImages(product);
   const [selected, setSelected] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [failed, setFailed] = useState<string[]>([]);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
@@ -32,11 +35,14 @@ export function ProductGallery({ product }: { product: Product }) {
   };
   const photo = (large = false) =>
     current && !failed.includes(current.src) ? (
-      <img
-        src={current.src}
+      <Image
+        src={assetPath(current.src)}
         alt={current.alt}
         width={large ? 1200 : 600}
         height={large ? 850 : 500}
+        sizes={large ? "90vw" : "(max-width: 800px) 90vw, 600px"}
+        loading="eager"
+        fetchPriority={large ? undefined : "high"}
         onError={() => setFailed((items) => [...items, current.src])}
       />
     ) : (
@@ -89,11 +95,12 @@ export function ProductGallery({ product }: { product: Product }) {
               aria-label={`Foto ${index + 1} di ${product.name}`}
               onClick={() => setSelected(index)}
             >
-              <img
-                src={image.src}
+              <Image
+                src={assetPath(image.src)}
                 alt=""
                 width={70}
                 height={70}
+                sizes="70px"
                 loading={index ? "lazy" : "eager"}
               />
             </button>
@@ -109,7 +116,10 @@ export function ProductGallery({ product }: { product: Product }) {
               className="icon-button zoom-button"
               type="button"
               aria-label="Ingrandisci foto prodotto"
-              onClick={() => dialog.current?.showModal()}
+              onClick={() => {
+                setLightboxOpen(true);
+                dialog.current?.showModal();
+              }}
             >
               <Maximize2 size={18} />
             </button>
@@ -140,7 +150,10 @@ export function ProductGallery({ product }: { product: Product }) {
         ref={dialog}
         className="image-modal"
         aria-label={`Fotografie di ${product.name}`}
-        onClose={() => opener.current?.focus()}
+        onClose={() => {
+          setLightboxOpen(false);
+          opener.current?.focus();
+        }}
         onClick={(event) => {
           if (event.target === dialog.current) dialog.current?.close();
         }}
@@ -153,7 +166,7 @@ export function ProductGallery({ product }: { product: Product }) {
         >
           <X />
         </button>
-        {photo(true)}
+        {lightboxOpen && photo(true)}
         {controls}
       </dialog>
     </section>

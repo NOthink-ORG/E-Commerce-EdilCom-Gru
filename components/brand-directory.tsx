@@ -1,15 +1,11 @@
-"use client";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import {
   brandDirectory,
   brandHref,
   normalizeSearch,
 } from "@/lib/catalog-navigation";
 import { SearchBar } from "./ui";
-export function BrandDirectory() {
-  const params = useSearchParams();
-  const query = params.get("q") || "";
+export function BrandDirectory({ query = "" }: { query?: string }) {
   const matches = brandDirectory.filter((brand) =>
     normalizeSearch(brand.name).includes(normalizeSearch(query)),
   );
@@ -42,10 +38,7 @@ export function BrandDirectory() {
               href={brandHref(brand.name)}
               className="category-card directory-card brand-card"
             >
-              <div
-                className="brand-wordmark"
-                aria-hidden="true"
-              >
+              <div className="brand-wordmark" aria-hidden="true">
                 {brand.name}
               </div>
               <h3>{brand.name}</h3>

@@ -1,4 +1,11 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
+export const metadata = pageMetadata(
+  "Pagina non trovata",
+  "La pagina richiesta non è disponibile nel catalogo dimostrativo Edilcom Gru.",
+  undefined,
+  "private",
+);
 export default function NotFound() {
   return (
     <main id="contenuto" className="container empty-state">

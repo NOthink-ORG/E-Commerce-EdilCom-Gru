@@ -1,14 +1,10 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { brandDirectory } from "@/lib/catalog-navigation";
 import { CollectionHero } from "@/components/collection-sections";
-import { CatalogView } from "@/components/catalog-view";
+import { Catalog } from "@/components/catalog";
+import { catalogRequest, requestHref } from "@/lib/catalog-request";
 import { SupportBanner } from "@/components/shell";
-import {
-  collectionCanonical,
-  type SearchParams,
-  pageMetadata,
-} from "@/lib/seo";
+import { collectionMetadata, type SearchParams } from "@/lib/seo";
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<SearchParams>;
@@ -22,31 +18,38 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const brand = brandDirectory.find((item) => item.slug === slug);
   if (!brand) notFound();
-  return pageMetadata(
+  const query = await searchParams;
+  if (!catalogRequest(query, { brand: brand.name }).result.validPage)
+    notFound();
+  return collectionMetadata(
     `Ricambi ${brand.name}`,
     `${brand.description}. Esplora categorie e prodotti del catalogo dimostrativo.`,
-    collectionCanonical(`/brand/${brand.slug}`, await searchParams),
+    `/brand/${brand.slug}`,
+    query,
+    { brand: brand.name },
   );
 }
-export default async function BrandPage({ params }: Props) {
+export default async function BrandPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const brand = brandDirectory.find((item) => item.slug === slug);
   if (!brand) notFound();
+  const query = await searchParams;
+  if (!catalogRequest(query, { brand: brand.name }).result.validPage)
+    notFound();
   return (
     <main id="contenuto">
       <CollectionHero
+        currentPath={requestHref(`/brand/${brand.slug}`, query)}
         title={`Ricambi ${brand.name}`}
         description={`${brand.description}. Scopri la selezione di componenti e accessori disponibili nel catalogo.`}
         items={[{ label: "Brand", href: "/brand" }, { label: brand.name }]}
         image={brand.image}
       />
-      <Suspense
-        fallback={
-          <div className="container loading">Caricamento prodotti…</div>
-        }
-      >
-        <CatalogView scope={{ brand: brand.name }} />
-      </Suspense>
+      <Catalog
+        params={query}
+        pathname={`/brand/${brand.slug}`}
+        scope={{ brand: brand.name }}
+      />
       <SupportBanner />
     </main>
   );

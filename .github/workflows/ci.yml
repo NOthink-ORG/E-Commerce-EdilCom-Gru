@@ -19,3 +19,14 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - name: Verify production HTML
+        shell: bash
+        run: |
+          npm start -- --port 3100 > "$RUNNER_TEMP/edilcom-next.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:3100/catalogo > /dev/null; then break; fi
+            sleep 1
+          done
+          SEO_TEST_BASE=http://localhost:3100 npm test

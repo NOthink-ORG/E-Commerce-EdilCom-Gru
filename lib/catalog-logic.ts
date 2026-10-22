@@ -134,3 +134,33 @@ export function paginateProducts<T>(
     : 1;
   return { page, pages, visible: items.slice((page - 1) * size, page * size) };
 }
+
+// Shared by server selection and optimistic client updates; never clamp an HTTP URL silently.
+export function selectCatalogPage(
+  source: Product[],
+  params: URLSearchParams,
+  priceLimit: number,
+) {
+  const state = parseCatalogState(params, priceLimit);
+  const filtered = filterProducts(source, state);
+  const result = paginateProducts(filtered, state.page);
+  const requested = params.getAll("pagina");
+  const validPage =
+    !requested.length ||
+    (requested.length === 1 &&
+      /^[1-9]\d*$/.test(requested[0]) &&
+      Number.isSafeInteger(Number(requested[0])) &&
+      Number(requested[0]) <= result.pages);
+  return { ...result, total: filtered.length, state, validPage };
+}
+export type CatalogPageResult = ReturnType<typeof selectCatalogPage>;
+export function paginationHref(
+  path: string,
+  params: URLSearchParams,
+  page: number,
+) {
+  const next = new URLSearchParams(params);
+  next.delete("pagina");
+  if (page > 1) next.set("pagina", String(page));
+  return `${path}${next.size ? `?${next.toString()}` : ""}`;
+}

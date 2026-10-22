@@ -1,14 +1,10 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { categoryDirectory } from "@/lib/catalog-navigation";
 import { CollectionHero } from "@/components/collection-sections";
-import { CatalogView } from "@/components/catalog-view";
+import { Catalog } from "@/components/catalog";
+import { catalogRequest, requestHref } from "@/lib/catalog-request";
 import { SupportBanner } from "@/components/shell";
-import {
-  collectionCanonical,
-  type SearchParams,
-  pageMetadata,
-} from "@/lib/seo";
+import { collectionMetadata, type SearchParams } from "@/lib/seo";
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<SearchParams>;
@@ -22,19 +18,28 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const category = categoryDirectory.find((item) => item.slug === slug);
   if (!category) notFound();
-  return pageMetadata(
+  const query = await searchParams;
+  if (!catalogRequest(query, { category: category.name }).result.validPage)
+    notFound();
+  return collectionMetadata(
     `${category.name} per gru`,
     `${category.description}. Esplora i prodotti demo, filtra per marca e confronta i ricambi.`,
-    collectionCanonical(`/categorie/${category.slug}`, await searchParams),
+    `/categorie/${category.slug}`,
+    query,
+    { category: category.name },
   );
 }
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const category = categoryDirectory.find((item) => item.slug === slug);
   if (!category) notFound();
+  const query = await searchParams;
+  if (!catalogRequest(query, { category: category.name }).result.validPage)
+    notFound();
   return (
     <main id="contenuto">
       <CollectionHero
+        currentPath={requestHref(`/categorie/${category.slug}`, query)}
         title={`${category.name} per gru`}
         description={`${category.description}. Esplora la selezione di ricambi e accessori per il sollevamento.`}
         items={[
@@ -42,13 +47,11 @@ export default async function CategoryPage({ params }: Props) {
           { label: category.name },
         ]}
       />
-      <Suspense
-        fallback={
-          <div className="container loading">Caricamento prodotti…</div>
-        }
-      >
-        <CatalogView scope={{ category: category.name }} />
-      </Suspense>
+      <Catalog
+        params={query}
+        pathname={`/categorie/${category.slug}`}
+        scope={{ category: category.name }}
+      />
       <SupportBanner />
     </main>
   );

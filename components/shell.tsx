@@ -1,4 +1,5 @@
 "use client";
+import { assetPath } from "@/lib/site-path";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import {
@@ -137,10 +138,10 @@ export function Header() {
             className="logo"
           >
             <img
-              src="/images/edilcomgru-logo.svg"
+              src={assetPath("/images/edilcomgru-logo.svg")}
               alt={brand.name}
-              width={178}
-              height={51}
+              width={188}
+              height={54}
             />
           </Link>
           <nav
@@ -278,7 +279,7 @@ export function Footer() {
           <h2>Ricambi per i principali marchi di gru</h2>
           <div className="brand-logos" aria-label="Marchi presenti nel catalogo demo">
             {["comedil", "liebherr", "manitowoc", "potain", "saez", "terex"].map((name) => (
-              <img key={name} src={`/images/${name}.svg`} alt={name} loading="lazy" />
+              <img key={name} src={assetPath(`/images/${name}.svg`)} alt={name} loading="lazy" />
             ))}
           </div>
         </div>
@@ -288,7 +289,7 @@ export function Footer() {
           <div className="footer-about">
             <Link href="/">
               <img
-                src="/images/edilcomgru-logo-footer.svg"
+                src={assetPath("/images/edilcomgru-logo-footer.svg")}
                 alt={brand.name}
                 width={160}
                 height={46}

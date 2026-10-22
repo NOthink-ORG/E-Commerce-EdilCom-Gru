@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { productMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { catalogProvider, products } from "@/lib/catalog";
 import { categoryHref, brandHref } from "@/lib/catalog-navigation";
-import { Breadcrumbs, ProductGrid } from "@/components/ui";
+import { ProductGrid } from "@/components/ui";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProductDetail } from "@/components/product-detail";
 import { SupportBanner } from "@/components/shell";
 export function generateStaticParams() {
@@ -15,11 +17,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const p = catalogProvider.find((await params).slug);
-  return {
-    title: p?.name || "Prodotto non trovato",
-    description: p?.description,
-    alternates: { canonical: `/prodotti/${(await params).slug}` },
-  };
+  if (!p) notFound();
+  return productMetadata(p);
 }
 export default async function ProductPage({
   params,
@@ -47,8 +46,12 @@ export default async function ProductPage({
       href: `/catalogo?compatibilita=${encodeURIComponent(p.compatibility[0])}`,
       label: "Esplora i ricambi",
       items: others
-        .filter((item) => item.category !== p.category && item.brand !== p.brand &&
-          item.compatibility.some((brand) => p.compatibility.includes(brand)))
+        .filter(
+          (item) =>
+            item.category !== p.category &&
+            item.brand !== p.brand &&
+            item.compatibility.some((brand) => p.compatibility.includes(brand)),
+        )
         .slice(0, 4),
     },
   ].filter((group) => group.items.length > 0);
@@ -56,6 +59,7 @@ export default async function ProductPage({
     <main id="contenuto">
       <div className="container product-page">
         <Breadcrumbs
+          currentPath={`/prodotti/${p.slug}`}
           items={[
             { label: "Ricambi", href: "/catalogo" },
             {
@@ -70,7 +74,9 @@ export default async function ProductPage({
           <section className="section related" key={group.title}>
             <div className="section-heading">
               <h2>{group.title}</h2>
-              <Link className="text-link" href={group.href}>{group.label}</Link>
+              <Link className="text-link" href={group.href}>
+                {group.label}
+              </Link>
             </div>
             <ProductGrid products={group.items} columns={4} />
           </section>

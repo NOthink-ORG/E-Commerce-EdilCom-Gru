@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  background: #153044 url("/images/hero.webp") center 52% / cover no-repeat;
+  background: #153044 var(--hero-image) center 52% / cover no-repeat;
   color: white;
   isolation: isolate;
 }
@@ -336,7 +336,7 @@
   content: "";
   inset: 0;
   z-index: -2;
-  background: url("/images/support.webp") right center/auto 100% no-repeat;
+  background: var(--support-image) right center/auto 100% no-repeat;
 }
 .support-banner:after {
   position: absolute;

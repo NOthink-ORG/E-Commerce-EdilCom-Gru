@@ -26,11 +26,11 @@ test("canonical per combinazioni, ricerca, pagina e ordinamento resta equivalent
   );
   assert.equal(
     catalogCanonical({ q: "Nova L", ordine: "price-asc" }),
-    "/catalogo?ordine=price-asc&q=Nova+L",
+    "/catalogo?q=nova+l",
   );
   assert.equal(
     catalogCanonical({ categoria: ["Funi", "Batterie"] }),
-    "/catalogo?categoria=Funi&categoria=Batterie",
+    "/catalogo?categoria=Batterie&categoria=Funi",
   );
   assert.equal(
     collectionCanonical("/brand/hbc", { max: "500" }),

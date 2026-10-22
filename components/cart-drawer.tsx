@@ -1,4 +1,5 @@
 "use client";
+import { assetPath } from "@/lib/site-path";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { X, Trash2 } from "lucide-react";
@@ -24,7 +25,7 @@ export function CartDrawer({ onClose }: { onClose: () => void }) {
     <div className="cart-drawer-panel">
       <div className="cart-drawer-heading"><h2>Il tuo carrello</h2><button className="icon-button" aria-label="Chiudi carrello" onClick={onClose}><X /></button></div>
       <div className="cart-drawer-items">{items.length ? items.map(({ product, quantity }) => <article className="cart-drawer-row" key={product.id}>
-        <img src={product.image} alt="" width={74} height={74} />
+        <img src={assetPath(product.image)} alt="" width={74} height={74} />
         <div><Link href={`/prodotti/${product.slug}`} onClick={onClose}><strong>{product.name}</strong></Link><small>Cod. {product.code}</small><b>{money(product.price * quantity)}</b><QuantitySelector value={quantity} onChange={q => update(product.id, q)} label={`Quantità ${product.name}`} /></div>
         <button className="icon-button" aria-label={`Rimuovi ${product.name}`} onClick={() => remove(product.id)}><Trash2 size={17}/></button>
       </article>) : <p>Il tuo carrello è ancora vuoto.</p>}</div>

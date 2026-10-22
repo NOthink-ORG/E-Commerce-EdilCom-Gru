@@ -1,6 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { CheckoutView } from "@/components/checkout-view";
-export const metadata: Metadata = { alternates: { canonical: "/checkout" }, title: "Checkout demo" };
+export const metadata = pageMetadata(
+  "Checkout demo",
+  "Percorso di compilazione dimostrativo, senza ordine o pagamento reale.",
+  "/checkout",
+  "private",
+);
 export default function CheckoutPage() {
   return (
     <main id="contenuto" className="container checkout-page">

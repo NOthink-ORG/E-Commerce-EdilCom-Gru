@@ -20,6 +20,9 @@ export type Product = {
   compatibility: string[];
   voltage?: string;
   description: string;
+  // Optional editorial metadata; no fabricated values in demo fixtures.
+  seo?: { title?: string; description?: string };
+  imageAlt?: string;
 };
 export const createDemoProduct = (
   id: string,
@@ -64,6 +67,6 @@ export function productImages(
   return gallery?.length
     ? gallery
     : product.image
-      ? [{ src: product.image, alt: product.name }]
+      ? [{ src: product.image, alt: product.imageAlt || product.name }]
       : [];
 }

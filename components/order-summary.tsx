@@ -1,4 +1,5 @@
 "use client";
+import { assetPath } from "@/lib/site-path";
 import Link from "next/link";
 import { LockKeyhole, Tag, Check } from "lucide-react";
 import { useState } from "react";
@@ -34,7 +35,7 @@ export function OrderSummary({
           {items.map(({ product, quantity }) => (
             <div key={product.id}>
               <img
-                src={product.image}
+                src={assetPath(product.image)}
                 width={78}
                 height={70}
                 alt={product.name}

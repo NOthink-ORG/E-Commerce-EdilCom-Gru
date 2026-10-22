@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/site-path";
+import { preload } from "react-dom";
 import Link from "next/link";
 import {
   categories as defaultCategories,
@@ -15,6 +17,7 @@ export function Hero({
   title?: string;
   highlight?: string;
 }) {
+  preload(assetPath("/images/hero.webp"), { as: "image", fetchPriority: "high" });
   return (
     <>
       <section className="hero">

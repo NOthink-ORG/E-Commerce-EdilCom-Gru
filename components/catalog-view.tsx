@@ -1,6 +1,8 @@
 "use client";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useOptimistic, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import type { Product } from "@/lib/product";
+import { useOptimistic, useState, useTransition, type ReactNode } from "react";
 import {
   SlidersHorizontal,
   X,
@@ -10,30 +12,43 @@ import {
   ChevronLeft,
   RotateCcw,
 } from "lucide-react";
-import { products, catalogPriceLimit } from "@/lib/catalog";
+import { catalogPriceLimit } from "@/lib/catalog";
 import { ProductGrid, SearchBar } from "./ui";
 import { CatalogFilters } from "./catalog-filters";
 import { FilterDrawer } from "./filter-drawer";
 import {
-  parseCatalogState,
-  scopedProducts,
-  filterProducts,
-  paginateProducts,
+  selectCatalogPage,
+  paginationHref,
+  type CatalogPageResult,
   type CatalogScope,
 } from "@/lib/catalog-logic";
-import { CollectionLinks } from "./collection-sections";
-export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
-  const params = useSearchParams(),
-    router = useRouter(),
-    pathname = usePathname();
-  const [filterQuery, setFilterQuery] = useOptimistic(params.toString());
+export function CatalogView({
+  scope = {},
+  pathname,
+  initialQuery,
+  source,
+  initialResult,
+  collectionLinks,
+}: {
+  scope?: CatalogScope;
+  pathname: string;
+  initialQuery: string;
+  source: Product[];
+  initialResult: CatalogPageResult;
+  collectionLinks?: ReactNode;
+}) {
+  const router = useRouter();
+  const [filterQuery, setFilterQuery] = useOptimistic(initialQuery);
   const [pending, startTransition] = useTransition();
   const current = new URLSearchParams(filterQuery);
   const [resetRevision, setResetRevision] = useState(0);
-  const source = scopedProducts(products, scope);
   const [drawer, setDrawer] = useState(false);
   const [layout, setLayout] = useState("grid");
-  const state = parseCatalogState(current, catalogPriceLimit);
+  const result =
+    filterQuery === initialQuery
+      ? initialResult
+      : selectCatalogPage(source, current, catalogPriceLimit);
+  const state = result.state;
   const {
     query,
     selectedCategories,
@@ -78,8 +93,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
     else next.delete(key);
     navigate(next);
   }
-  const filtered = filterProducts(source, state);
-  const { pages, page, visible } = paginateProducts(filtered, state.page);
+  const { pages, page, visible, total } = result;
   const filters = (
     <CatalogFilters
       key={resetRevision}
@@ -95,7 +109,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
         voltage,
         sliderMax,
       }}
-      filteredCount={filtered.length}
+      filteredCount={total}
       change={change}
       onReset={reset}
       onClose={() => setDrawer(false)}
@@ -124,7 +138,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
           }
         />
       </div>
-      {!scope.brand && <CollectionLinks />}
+      {collectionLinks}
       <section className="container catalog-layout" id="prodotti">
         <aside className="filters desktop-filters" aria-label="Filtri catalogo">
           {filters}
@@ -137,8 +151,7 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
         <div className="catalog-results" aria-busy={pending}>
           <div className="catalog-toolbar">
             <strong>
-              {filtered.length}{" "}
-              {filtered.length === 1 ? "prodotto trovato" : "prodotti trovati"}
+              {total} {total === 1 ? "prodotto trovato" : "prodotti trovati"}
             </strong>
             <button
               className="button outline filter-toggle"
@@ -214,30 +227,51 @@ export function CatalogView({ scope = {} }: { scope?: CatalogScope }) {
           )}
           {pages > 1 && (
             <nav aria-label="Paginazione" className="pagination">
-              <button
-                aria-label="Pagina precedente"
-                disabled={page === 1}
-                onClick={() => change("pagina", String(page - 1))}
-              >
-                <ChevronLeft size={17} />
-              </button>
+              {page > 1 ? (
+                <Link
+                  aria-label="Pagina precedente"
+                  href={paginationHref(pathname, current, page - 1)}
+                  scroll={false}
+                >
+                  <ChevronLeft size={17} />
+                </Link>
+              ) : (
+                <span
+                  role="link"
+                  aria-label="Pagina precedente"
+                  aria-disabled="true"
+                >
+                  <ChevronLeft size={17} />
+                </span>
+              )}
               {Array.from({ length: pages }, (_, i) => (
-                <button
+                <Link
                   aria-current={page === i + 1 ? "page" : undefined}
                   key={i}
                   className={page === i + 1 ? "active" : ""}
-                  onClick={() => change("pagina", String(i + 1))}
+                  href={paginationHref(pathname, current, i + 1)}
+                  scroll={false}
                 >
                   {i + 1}
-                </button>
+                </Link>
               ))}
-              <button
-                aria-label="Pagina successiva"
-                disabled={page === pages}
-                onClick={() => change("pagina", String(page + 1))}
-              >
-                Successiva
-              </button>
+              {page < pages ? (
+                <Link
+                  aria-label="Pagina successiva"
+                  href={paginationHref(pathname, current, page + 1)}
+                  scroll={false}
+                >
+                  Successiva
+                </Link>
+              ) : (
+                <span
+                  role="link"
+                  aria-label="Pagina successiva"
+                  aria-disabled="true"
+                >
+                  Successiva
+                </span>
+              )}
             </nav>
           )}
           <p className="catalog-note">

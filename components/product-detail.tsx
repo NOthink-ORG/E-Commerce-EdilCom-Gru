@@ -1,4 +1,3 @@
-"use client";
 import { ShieldCheck } from "lucide-react";
 import { ProductGallery } from "./product-gallery";
 import type { Product } from "@/lib/catalog";

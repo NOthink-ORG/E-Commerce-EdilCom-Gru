@@ -1,5 +1,7 @@
+import { assetPath } from "@/lib/site-path";
+import { preload } from "react-dom";
 import Link from "next/link";
-import { Breadcrumbs } from "./ui";
+import { Breadcrumbs } from "./breadcrumbs";
 import { categoryDirectory, categoryHref } from "@/lib/catalog-navigation";
 
 export function CollectionHero({
@@ -7,18 +9,24 @@ export function CollectionHero({
   description,
   items,
   image,
+  currentPath,
 }: {
   title: string;
   description: string;
   items: { label: string; href?: string }[];
   image?: string;
+  currentPath?: string;
 }) {
+  preload(assetPath("/images/hero.webp"), {
+    as: "image",
+    fetchPriority: "high",
+  });
   return (
     <section
       className={`hero category-hero collection-hero${image ? " brand-hero" : ""}`}
     >
       <div className="container">
-        <Breadcrumbs items={items} />
+        <Breadcrumbs items={items} currentPath={currentPath} />
         <div className="collection-hero-copy">
           <h1>{title}</h1>
           <p>{description}</p>
@@ -31,7 +39,7 @@ export function CollectionHero({
         {image && (
           <img
             className="brand-hero-image"
-            src={image}
+            src={assetPath(image)}
             alt=""
             width={230}
             height={200}
@@ -58,7 +66,7 @@ export function CategoryCard({
     >
       <img
         className="directory-image"
-        src={`/images/demo/${category.image}.jpg`}
+        src={assetPath(`/images/demo/${category.image}.jpg`)}
         alt=""
         width={280}
         height={210}
@@ -85,7 +93,13 @@ export function CollectionLinks() {
       aria-label="Esplora il catalogo"
     >
       <Link className="category-card collection-link" href="/categorie">
-        <img src="/images/demo/remote.jpg" alt="" width={100} height={80} />
+        <img
+          src={assetPath("/images/demo/remote.jpg")}
+          loading="lazy"
+          alt=""
+          width={100}
+          height={80}
+        />
         <span>
           <strong>Tutte le categorie</strong>
           <small>
@@ -94,7 +108,13 @@ export function CollectionLinks() {
         </span>
       </Link>
       <Link className="category-card collection-link" href="/brand">
-        <img src="/images/demo/receiver.jpg" alt="" width={100} height={80} />
+        <img
+          src={assetPath("/images/demo/receiver.jpg")}
+          loading="lazy"
+          alt=""
+          width={100}
+          height={80}
+        />
         <span>
           <strong>Tutti i brand</strong>
           <small>Esplora i marchi disponibili nel catalogo ricambi.</small>
