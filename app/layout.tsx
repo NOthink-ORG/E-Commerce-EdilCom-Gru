@@ -36,7 +36,7 @@ export default function RootLayout({
       className={inter.variable}
       style={
         {
-          "--hero-image": `url("${assetPath("/images/hero.webp")}")`,
+          "--hero-image": `url("${assetPath("/images/hero-positano.webp")}")`,
           "--support-image": `url("${assetPath("/images/support.webp")}")`,
         } as CSSProperties
       }
